@@ -12,36 +12,35 @@ public class Player : MonoBehaviour
     [SerializeField]
     private LayerMask itemLayer;
 
-    //아이템 정보 표시
-    [SerializeField]
-    private GameObject ItemInfo;
-    [SerializeField]
-    private TextMeshProUGUI itemNameText;
-    [SerializeField]
-    private TextMeshProUGUI itemValueText;
-
     private Item nearbyItem;
+    private DayPassTrigger nearbyDayAdvanceTrigger;
     private Camera mainCamera;
     private int currentSlot = -1;
 
     void Start()
     {
         mainCamera = Camera.main;
-        ItemInfo.SetActive(false);
-        itemNameText.gameObject.SetActive(false);
-        itemValueText.gameObject.SetActive(false);
+        UIManager.Instance.ShowItemInfo(false);
     }
 
     void Update()
     {
-        CheckForItem();
-
-        if (nearbyItem != null)
+        if (GameManager.Instance.isGameOver)
         {
-            if (Input.GetKeyDown(KeyCode.F))
-            {
-                PickupItem();
-            }
+            return;
+        }
+        
+        CheckForItem();
+        CheckForDayAdvanceTrigger();
+
+        if (nearbyItem != null && Input.GetKeyDown(KeyCode.F))
+        {
+            PickupItem();
+        }
+
+        if (nearbyDayAdvanceTrigger != null && Input.GetKeyDown(KeyCode.F))
+        {
+            DayPass();
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -80,8 +79,8 @@ public class Player : MonoBehaviour
         SelectQuickSlot[currentSlot].SetActive(true);
     }
 
-
-    void CheckForItem() //레이캐스트 아이템 탐색 확인
+    //레이캐스트로 아이템 탐색 확인
+    void CheckForItem() 
     {
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
@@ -94,21 +93,38 @@ public class Player : MonoBehaviour
             if (item != null)
             {
                 nearbyItem = item;
-                itemNameText.text = item.itemName;
-                itemValueText.text = item.value.ToString() + "원";
-                ItemInfo.SetActive(true);
-                itemNameText.gameObject.SetActive(true);
-                itemValueText.gameObject.SetActive(true);
+                UIManager.Instance.UpdateItemInfoUI(item.itemName, item.value);
+                UIManager.Instance.ShowItemInfo(true);
                 return;
             }
         }
 
         nearbyItem = null;
-        ItemInfo.SetActive(false);
-        itemNameText.gameObject.SetActive(false);
-        itemValueText.gameObject.SetActive(false);
+        UIManager.Instance.ShowItemInfo(false);
     }
 
+    //레이캐스트로 날짜 넘기는 트리거 체크
+    void CheckForDayAdvanceTrigger()
+    {
+        Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit, pickupRange))
+        {
+            DayPassTrigger dayAdvanceTrigger = hit.collider.GetComponent<DayPassTrigger>();
+            if (dayAdvanceTrigger != null)
+            {
+                nearbyDayAdvanceTrigger = dayAdvanceTrigger;
+                UIManager.Instance.ShowInteractionMessage("F 날짜 넘김", true);
+                return;
+            }
+        }
+
+        nearbyDayAdvanceTrigger = null;
+        UIManager.Instance.ShowInteractionMessage("", false);
+    }
+
+    //아이템 줍기
     void PickupItem()
     {
         if (nearbyItem != null)
@@ -116,10 +132,11 @@ public class Player : MonoBehaviour
             quickSlot.AddItemToSlot(nearbyItem);
             nearbyItem.Pickup();
             nearbyItem = null;
-            itemNameText.gameObject.SetActive(false);
+            UIManager.Instance.ShowItemInfo(false);
         }
     }
 
+    //아이템 버리기
     void DropItem()
     {
         Item itemToDrop = quickSlot.GetSelectedSlotItem(currentSlot);
@@ -131,5 +148,13 @@ public class Player : MonoBehaviour
             quickSlot.RemoveItemFromSlot(currentSlot);
             Debug.Log(currentSlot + 1 + "번 슬롯 아이템 드랍");
         }
+    }
+
+    // 하루 넘기는 버튼에서 F키 눌렀을 때 처리
+    void DayPass()
+    {
+        GameManager.Instance.DayPass();
+        nearbyDayAdvanceTrigger = null;
+        UIManager.Instance.ShowInteractionMessage("", false);
     }
 }

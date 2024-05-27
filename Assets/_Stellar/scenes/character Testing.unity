@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18047997, g: 0.22594893, b: 0.3070345, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -136,7 +136,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8469899220381358103, guid: 0d884c2ea9129ec4a88900b4edbfa887, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9133564870657049261, guid: 0d884c2ea9129ec4a88900b4edbfa887, type: 3}
       propertyPath: m_RootOrder
@@ -282,6 +282,32 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &904033651 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8469899220381358103, guid: 0d884c2ea9129ec4a88900b4edbfa887, type: 3}
+  m_PrefabInstance: {fileID: 182450188}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &904033653
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 904033651}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 181986e8a9280d24e9742730821d1ec6, type: 2}
+  m_Controller: {fileID: 9100000, guid: c6af433e6f5cb1547b7eb5d523f66634, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &904330897
 GameObject:
   m_ObjectHideFlags: 0
@@ -478,7 +504,7 @@ PrefabInstance:
     - target: {fileID: 3141169023146203350, guid: 6e4b803adff4db74abce5e3c3c6f7e2b, type: 3}
       propertyPath: m_Avatar
       value: 
-      objectReference: {fileID: 9000000, guid: 0cebbcf20f642b74f9e56124cfee3a51, type: 2}
+      objectReference: {fileID: 9000000, guid: 181986e8a9280d24e9742730821d1ec6, type: 2}
     - target: {fileID: 3141169023146203350, guid: 6e4b803adff4db74abce5e3c3c6f7e2b, type: 3}
       propertyPath: m_Controller
       value: 
@@ -489,7 +515,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8519773575590877206, guid: 6e4b803adff4db74abce5e3c3c6f7e2b, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9040835797815313068, guid: 6e4b803adff4db74abce5e3c3c6f7e2b, type: 3}
       propertyPath: m_RootOrder
@@ -577,8 +603,8 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1638875849}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 59d43d53425905a42b4047635b81fc8e, type: 2}
+  m_Avatar: {fileID: 9000000, guid: d4405c6a701e80f44baa941c81807109, type: 2}
+  m_Controller: {fileID: 9100000, guid: ee3c3eec4dc9ea645a141938ef75b6d7, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -602,7 +628,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1245751644427782687, guid: 6ee8be4241fcb8c40b812aea7c065179, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1245751644428015167, guid: 6ee8be4241fcb8c40b812aea7c065179, type: 3}
       propertyPath: m_RootOrder
@@ -661,9 +687,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: turret_divided
       objectReference: {fileID: 0}
+    - target: {fileID: 2848128928944727772, guid: aa3d525b743a92d41861323bfc8ae5fe, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3228314054182567014, guid: aa3d525b743a92d41861323bfc8ae5fe, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3228314054182567014, guid: aa3d525b743a92d41861323bfc8ae5fe, type: 3}
       propertyPath: m_LocalPosition.x
@@ -845,7 +875,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6744588927304912252, guid: 35d4372d326e34e4ea785f270304fef9, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8128636014328443097, guid: 35d4372d326e34e4ea785f270304fef9, type: 3}
       propertyPath: m_LocalRotation.w

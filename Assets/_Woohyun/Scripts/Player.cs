@@ -121,7 +121,10 @@ public class Player : MonoBehaviour
         }
 
         nearbyDayAdvanceTrigger = null;
-        UIManager.Instance.ShowInteractionMessage("", false);
+        if (MoveMap.isPlayerInTrigger == false)
+        {
+            UIManager.Instance.ShowInteractionMessage("", false);
+        }
     }
 
     //아이템 줍기

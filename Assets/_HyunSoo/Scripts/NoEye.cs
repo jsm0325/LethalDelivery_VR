@@ -16,7 +16,7 @@ public class NoEye : Enemy
     public override void Update()
     {
         base.Update();
-        if (audioSource.isPlaying && isEarOn == true)
+        if (audioSource.isPlaying && state == State.kill)
         {
             Collider[] colliders = Physics.OverlapSphere(transform.position, detectionRange);
             foreach (Collider collider in colliders)

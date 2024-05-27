@@ -15,7 +15,15 @@ public class CollectBug : Enemy
     public override void Update()
     {
         base.Update();
-        if (state == State.kill && isGivenItem == false)
+        if (state == State.wander)
+        {
+            isGivenItem = false;
+        }
+        if (state == State.encounter)
+        {
+            //anim encounter, check isGivenItem
+        }
+        if (state == State.kill)
         {
             agent.SetDestination(player.position);
             if (Vector3.Distance(transform.position, player.position) <= killDis)

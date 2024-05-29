@@ -808,11 +808,11 @@ PrefabInstance:
     - target: {fileID: 14192071959596476, guid: 35d4372d326e34e4ea785f270304fef9, type: 3}
       propertyPath: m_Avatar
       value: 
-      objectReference: {fileID: 9000000, guid: f8dc32890263fee428a652f5170228d8, type: 2}
+      objectReference: {fileID: 9000000, guid: d4405c6a701e80f44baa941c81807109, type: 2}
     - target: {fileID: 14192071959596476, guid: 35d4372d326e34e4ea785f270304fef9, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: 92fd404d705b1df4eb3b4e517ced5a99, type: 2}
+      objectReference: {fileID: 9100000, guid: c04c2c15c52ac6e468714d482072868e, type: 2}
     - target: {fileID: 14192071959596476, guid: 35d4372d326e34e4ea785f270304fef9, type: 3}
       propertyPath: m_WarningMessage
       value: 

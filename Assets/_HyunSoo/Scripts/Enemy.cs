@@ -10,7 +10,7 @@ public class Enemy : MonoBehaviour
     public string name;
 
     private float wanderRadius = 10.0f;
-    public enum State { wander, kill };
+    public enum State { wander, encounter, kill };
     public State state;
     public float killDis = 0.5f;
     private Vector3 wanderPosition;
@@ -27,7 +27,7 @@ public class Enemy : MonoBehaviour
         {
             return;
         }
-        print(state);
+
         switch (state)
         {
             case State.wander:
@@ -36,7 +36,6 @@ public class Enemy : MonoBehaviour
                     wanderPosition = Random.insideUnitSphere * wanderRadius + transform.position;
                     wanderPosition.y = transform.position.y;
                     agent.SetDestination(wanderPosition);
-                    print(wanderPosition);
                 }
                 break;
         }

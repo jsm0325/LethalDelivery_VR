@@ -13,7 +13,15 @@ public class Giant : Enemy
     public override void Update()
     {
         base.Update();
-        if(state == State.kill && isPlayerBig == false)
+        if(state == State.wander)
+        {
+            isPlayerBig = false;
+        }
+        if(state == State.encounter)
+        {
+            //anim encounter, check isplayerbig
+        }
+        if(state == State.kill)
         {
             agent.SetDestination(player.position);
             if (Vector3.Distance(transform.position, player.position) <= killDis)

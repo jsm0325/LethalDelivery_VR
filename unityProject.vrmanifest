@@ -5,7 +5,7 @@
       "app_key": "application.generated.unity.lethaldeliveryvr.exe",
       "launch_type": "url",
       "url": "steam://launch/",
-      "action_manifest_path": "C:\\Users\\user\\Documents\\GitHub\\LethalDelivery_VR\\Assets\\StreamingAssets\\SteamVR\\actions.json",
+      "action_manifest_path": "C:\\Users\\jsm96\\Documents\\GitHub\\LethalDelivery_VR\\Assets\\StreamingAssets\\SteamVR\\actions.json",
       "strings": {
         "en_us": {
           "name": "LethalDeliveryVR [Testing]"

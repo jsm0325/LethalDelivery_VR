@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
@@ -33,15 +34,31 @@ public class UIManager : MonoBehaviour
 
     public static UIManager Instance;
 
+    [Header("Äü½½·Ô")]
+    [SerializeField]
+    private Image[] slotImages;
+    private Item[] items;
+
     void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
             Destroy(gameObject);
+        }
+
+        items = new Item[slotImages.Length];
+    }
+
+    private void Start()
+    {
+        for (int i = 0; i < slotImages.Length; i++)
+        {
+            slotImages[i].enabled = false;
         }
     }
 
@@ -73,7 +90,7 @@ public class UIManager : MonoBehaviour
 
     public void ShowItemInfo(bool show)
     {
-        itemInfoBackground.gameObject.SetActive(show);
+        itemInfoBackground.SetActive(show);
         itemNameText.gameObject.SetActive(show);
         itemValueText.gameObject.SetActive(show);
     }
@@ -85,8 +102,55 @@ public class UIManager : MonoBehaviour
 
     public void ShowInteractionMessage(string message, bool show)
     {
-        interactionBackground.gameObject.SetActive(show);
+        interactionBackground.SetActive(show);
         interactionText.text = message;
         interactionText.gameObject.SetActive(show);
+    }
+
+    // Äü½½·Ô ±â´É
+    public bool IsQuickSlotFull()
+    {
+        foreach (Image slotImage in slotImages)
+        {
+            if (!slotImage.enabled)
+            {
+                return false; // ºó ½½·ÔÀÌ ÇÏ³ª¶óµµ ÀÖÀ¸¸é ²Ë Â÷Áö ¾ÊÀº »óÅÂ
+            }
+        }
+        return true; // ¸ðµç ½½·ÔÀÌ Ã¤¿öÁ® ÀÖÀ¸¸é ²Ë Âù »óÅÂ
+    }
+
+    public void AddItemToQuickSlot(Item item)
+    {
+        for (int i = 0; i < slotImages.Length; i++)
+        {
+            if (!slotImages[i].enabled)
+            {
+                slotImages[i].sprite = item.icon;
+                slotImages[i].enabled = true;
+                items[i] = item;
+                Debug.Log($"{item.itemName} ¾ÆÀÌÅÛ {i + 1}¹ø ½½·Ô¿¡ Ãß°¡");
+                break;
+            }
+        }
+    }
+
+    public void RemoveItemFromQuickSlot(int index)
+    {
+        if (index >= 0 && index < slotImages.Length)
+        {
+            slotImages[index].sprite = null;
+            slotImages[index].enabled = false;
+            items[index] = null;
+        }
+    }
+
+    public Item GetSelectedQuickSlotItem(int index)
+    {
+        if (index >= 0 && index < slotImages.Length && slotImages[index].enabled)
+        {
+            return items[index];
+        }
+        return null;
     }
 }

@@ -4,8 +4,6 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField]
-    private QuickSlot quickSlot;
-    [SerializeField]
     private GameObject[] SelectQuickSlot;
     [SerializeField]
     private float pickupRange = 2.0f;
@@ -17,6 +15,11 @@ public class Player : MonoBehaviour
     private Camera mainCamera;
     private int currentSlot = -1;
 
+
+    private void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
     void Start()
     {
         mainCamera = Camera.main;
@@ -133,13 +136,13 @@ public class Player : MonoBehaviour
         if (nearbyItem != null)
         {
             // 퀵슬롯이 모두 꽉 찼는지 확인
-            if (quickSlot.IsFull())
+            if (UIManager.Instance.IsQuickSlotFull())
             {
                 Debug.Log("퀵슬롯이 모두 꽉 찼습니다!");
                 return; // 아이템을 줍지 않고 메서드 종료
             }
 
-            quickSlot.AddItemToSlot(nearbyItem);
+            UIManager.Instance.AddItemToQuickSlot(nearbyItem);
             nearbyItem.Pickup();
             nearbyItem = null;
             UIManager.Instance.ShowItemInfo(false);
@@ -149,13 +152,13 @@ public class Player : MonoBehaviour
     //아이템 버리기
     void DropItem()
     {
-        Item itemToDrop = quickSlot.GetSelectedSlotItem(currentSlot);
+        Item itemToDrop = UIManager.Instance.GetSelectedQuickSlotItem(currentSlot);
         if (itemToDrop != null)
         {
             Vector3 dropPosition = transform.position + transform.forward;
             itemToDrop.gameObject.SetActive(true);
             itemToDrop.transform.position = dropPosition; // 현재 위치에 아이템 드랍
-            quickSlot.RemoveItemFromSlot(currentSlot);
+            UIManager.Instance.RemoveItemFromQuickSlot(currentSlot);
             Debug.Log(currentSlot + 1 + "번 슬롯 아이템 드랍");
         }
     }

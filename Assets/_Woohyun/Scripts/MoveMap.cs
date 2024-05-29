@@ -38,6 +38,7 @@ public class MoveMap : MonoBehaviour
             if (keyPressDuration >= requiredPressTime)
             {
                 SceneManager.LoadScene("SafeZone");
+                UIManager.Instance.ShowInteractionMessage("", false);
             }
         }
         else

@@ -6,9 +6,12 @@ public class Item : MonoBehaviour
     public Sprite icon;
     public int value;
 
+
+
     public void Pickup()
     {
         gameObject.SetActive(false);
+
     }
 
 }

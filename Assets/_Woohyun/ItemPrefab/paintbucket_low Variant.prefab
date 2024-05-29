@@ -9,7 +9,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100006, guid: b451a052397f03c4f8a04d915d1c0492, type: 3}
       propertyPath: m_Name
-      value: paintbucket_low
+      value: paintbucket_low Variant
       objectReference: {fileID: 0}
     - target: {fileID: 100006, guid: b451a052397f03c4f8a04d915d1c0492, type: 3}
       propertyPath: m_Layer
@@ -120,5 +120,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemName: "\uD398\uC778\uD2B8\uD1B5"
-  icon: {fileID: 21300000, guid: f12a59a804d356a449e442abab121eec, type: 3}
+  icon: {fileID: 21300000, guid: d278b17989634ec4385a98d8661704cd, type: 3}
   value: 500

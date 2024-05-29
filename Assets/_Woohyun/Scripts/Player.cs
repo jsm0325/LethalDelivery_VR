@@ -132,6 +132,13 @@ public class Player : MonoBehaviour
     {
         if (nearbyItem != null)
         {
+            // 퀵슬롯이 모두 꽉 찼는지 확인
+            if (quickSlot.IsFull())
+            {
+                Debug.Log("퀵슬롯이 모두 꽉 찼습니다!");
+                return; // 아이템을 줍지 않고 메서드 종료
+            }
+
             quickSlot.AddItemToSlot(nearbyItem);
             nearbyItem.Pickup();
             nearbyItem = null;

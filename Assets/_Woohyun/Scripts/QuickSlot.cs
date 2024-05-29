@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class QuickSlot : MonoBehaviour
 {
     [SerializeField]
-    private Image[] slotImages; 
+    private Image[] slotImages;
     private Item[] items;
 
     private void Start()
@@ -15,6 +15,19 @@ public class QuickSlot : MonoBehaviour
         {
             slotImages[i].enabled = false;
         }
+    }
+
+    // Äü½½·ÔÀÌ ¸ğµÎ ²Ë Ã¡´ÂÁö È®ÀÎÇÏ´Â ¸Ş¼­µå
+    public bool IsFull()
+    {
+        foreach (Image slotImage in slotImages)
+        {
+            if (!slotImage.enabled)
+            {
+                return false; // ºó ½½·ÔÀÌ ÇÏ³ª¶óµµ ÀÖÀ¸¸é ²Ë Â÷Áö ¾ÊÀº »óÅÂ
+            }
+        }
+        return true; // ¸ğµç ½½·ÔÀÌ Ã¤¿öÁ® ÀÖÀ¸¸é ²Ë Âù »óÅÂ
     }
 
     public void AddItemToSlot(Item item)
@@ -36,9 +49,9 @@ public class QuickSlot : MonoBehaviour
     {
         if (index >= 0 && index < slotImages.Length)
         {
-            slotImages[index].sprite = null; 
+            slotImages[index].sprite = null;
             slotImages[index].enabled = false;
-            items[index] = null; 
+            items[index] = null;
         }
     }
 

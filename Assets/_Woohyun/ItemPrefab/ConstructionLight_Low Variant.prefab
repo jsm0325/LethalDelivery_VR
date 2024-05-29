@@ -9,7 +9,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: e3ae06a3979f53046aa05330d69de1fa, type: 3}
       propertyPath: m_Name
-      value: ConstructionLight_Low
+      value: ConstructionLight_Low Variant
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: e3ae06a3979f53046aa05330d69de1fa, type: 3}
       propertyPath: m_Layer
@@ -108,5 +108,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemName: "\uC870\uBA85"
-  icon: {fileID: 21300000, guid: 39d43623adbcc0e4d952985d34a4896a, type: 3}
+  icon: {fileID: 21300000, guid: 8aeb2af1368968744b572fc01ca3741c, type: 3}
   value: 200

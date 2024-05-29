@@ -9,7 +9,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: 6296e48663fd7ad46b1a2af507f871cf, type: 3}
       propertyPath: m_Name
-      value: safetygoggles_low
+      value: safetygoggles_low Variant
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 6296e48663fd7ad46b1a2af507f871cf, type: 3}
       propertyPath: m_Layer
@@ -120,5 +120,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemName: "\uC548\uC804\uACE0\uAE00"
-  icon: {fileID: 21300000, guid: 54cd865871449b3469169871eeaeb24c, type: 3}
+  icon: {fileID: 21300000, guid: add7fe454c7870e49bc3b2a3ba1767ce, type: 3}
   value: 700

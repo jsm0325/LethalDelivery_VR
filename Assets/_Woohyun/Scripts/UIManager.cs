@@ -110,17 +110,27 @@ public class UIManager : MonoBehaviour
     // Äü½½·Ô ±â´É
     public bool IsQuickSlotFull()
     {
-        foreach (Image slotImage in slotImages)
+        foreach (var slot in slotImages)
         {
-            if (!slotImage.enabled)
+            if (!slot.enabled)
             {
                 return false;
             }
         }
         return true;
     }
-
-    public void AddItemToQuickSlot(Item item)
+    public int GetFirstEmptySlotIndex()
+    {
+        for (int i = 0; i < slotImages.Length; i++)
+        {
+            if (!slotImages[i].enabled)
+            {
+                return i;
+            }
+        }
+        return -1; // ºó ½½·ÔÀÌ ¾øÀ» ¶§
+    }
+    public int AddItemToQuickSlot(Item item)
     {
         for (int i = 0; i < slotImages.Length; i++)
         {
@@ -130,9 +140,10 @@ public class UIManager : MonoBehaviour
                 slotImages[i].enabled = true;
                 quickSlotItems[i] = item;
                 Debug.Log($"{item.itemName} ¾ÆÀÌÅÛ {i + 1}¹ø ½½·Ô¿¡ Ãß°¡");
-                break;
+                return i; // Ãß°¡µÈ ½½·ÔÀÇ ÀÎµ¦½º ¹ÝÈ¯
             }
         }
+        return -1; // ºó ½½·ÔÀÌ ¾øÀ» ¶§
     }
 
     public void RemoveItemFromQuickSlot(int index)

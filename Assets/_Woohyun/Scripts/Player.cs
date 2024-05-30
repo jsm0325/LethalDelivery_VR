@@ -13,12 +13,26 @@ public class Player : MonoBehaviour
     private Item nearbyItem;
     private DayPassTrigger nearbyDayAdvanceTrigger;
     private Camera mainCamera;
-    private int currentSlot = -1;
+    private int currentSlot = 0;
+
+    public GameObject[] quickSlotPrefabs = new GameObject[4];
+
+    private static Player instance;
+
 
 
     private void Awake()
     {
-        DontDestroyOnLoad(gameObject);
+        // Singleton 패턴을 사용하여 중복 인스턴스가 생기지 않도록 합니다.
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject); // 씬 전환 시 삭제되지 않도록 설정
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
     void Start()
     {
@@ -140,21 +154,29 @@ public class Player : MonoBehaviour
                 return;
             }
 
-            UIManager.Instance.AddItemToQuickSlot(nearbyItem);
-            nearbyItem.Pickup(); // 아이템 오브젝트 비활성화
-            nearbyItem = null;
-            UIManager.Instance.ShowItemInfo(false);
+            int slotIndex = UIManager.Instance.AddItemToQuickSlot(nearbyItem);
+            if (slotIndex != -1)
+            {
+                quickSlotPrefabs[slotIndex] = nearbyItem.gameObject; // 해당 퀵슬롯에 프리팹 저장
+                InventoryManager.Instance.AddItem(nearbyItem); // 인벤토리에 아이템 추가
+                nearbyItem.Pickup(); // 아이템 오브젝트 비활성화
+                nearbyItem = null;
+                UIManager.Instance.ShowItemInfo(false);
+            }
         }
     }
 
     void DropItem()
     {
         Item itemToDrop = UIManager.Instance.GetSelectedQuickSlotItem(currentSlot);
-        if (itemToDrop != null)
+        if (itemToDrop != null && quickSlotPrefabs[currentSlot] != null)
         {
-            Vector3 dropPosition = transform.position + transform.forward +transform.up;
+            Vector3 dropPosition = transform.position + transform.forward + transform.up;
+            GameObject droppedItem = Instantiate(quickSlotPrefabs[currentSlot], dropPosition, Quaternion.identity); // 저장된 프리팹을 사용하여 아이템 생성
             itemToDrop.Drop(dropPosition); // 아이템 오브젝트 활성화 및 위치 재설정
+            InventoryManager.Instance.RemoveItem(itemToDrop); // 인벤토리에서 아이템 제거
             UIManager.Instance.RemoveItemFromQuickSlot(currentSlot);
+            quickSlotPrefabs[currentSlot] = null; // 프리팹 배열에서 제거
             Debug.Log($"{currentSlot + 1}번 슬롯 아이템 드랍");
         }
     }

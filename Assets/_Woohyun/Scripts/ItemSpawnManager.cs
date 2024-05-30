@@ -1,27 +1,14 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class ItemManager : MonoBehaviour
+public class ItemSpawnManager : MonoBehaviour
 {
-    public static ItemManager Instance { get; private set; }
 
     [SerializeField]
     private List<GameObject> itemPrefabs; // 아이템 프리팹 리스트
     [SerializeField]
     private List<Transform> spawnLocations; // 아이템 스폰 위치 리스트
 
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
 
     private void Start()
     {

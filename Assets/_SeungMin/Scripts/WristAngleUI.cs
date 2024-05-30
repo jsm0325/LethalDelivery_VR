@@ -9,6 +9,10 @@ public class WristAngleUI : MonoBehaviour
     public Canvas wristUICanvas; // 손목 UI 캔버스
     public Vector3 minActivationAngle = new Vector3(-60, -60, -60); // UI를 활성화할 최소 각도
     public Vector3 maxActivationAngle = new Vector3(60, 60, 60); // UI를 활성화할 최대 각도
+    public Vector3 offset = new Vector3(0, 0.1f, 0); // 손목 위에 UI를 위치시키기 위한 오프셋
+    public float smoothSpeed = 5f; // UI가 손목을 따라가는 속도
+    public Transform wristTransform; // 손목의 Transform
+    public Transform cameraTransform; // 카메라의 Transform
 
     private void Start()
     {
@@ -17,32 +21,34 @@ public class WristAngleUI : MonoBehaviour
 
     private void Update()
     {
-        Quaternion wristRotation = wristPose.GetLocalRotation(handType);
+        IsActivationAngle();
 
-        // 손목의 회전 각도 가져오기
-        Vector3 wristEulerAngles = wristRotation.eulerAngles;
+        wristUICanvas.transform.LookAt(cameraTransform);
 
-        // 각도 범위를 체크하여 UI 활성화/비활성화
-        if (IsActivationAngle(wristEulerAngles))
+        if (wristTransform != null)
         {
-            wristUICanvas.gameObject.SetActive(true);
-        }
-        else
-        {
-            wristUICanvas.gameObject.SetActive(false);
+            // 손목의 위치와 회전을 기반으로 UI의 위치와 회전을 설정
+            Vector3 targetPosition = wristTransform.position + wristTransform.TransformVector(offset);
+            wristUICanvas.transform.position = Vector3.Lerp(wristUICanvas.transform.position, targetPosition, Time.deltaTime * smoothSpeed);
         }
     }
 
-    private bool IsActivationAngle(Vector3 eulerAngles)
+    private void IsActivationAngle()
     {
-        // 각도를 -180 ~ 180 범위로 변환
-        float xAngle = eulerAngles.x > 180 ? eulerAngles.x - 360 : eulerAngles.x;
-        float yAngle = eulerAngles.y > 180 ? eulerAngles.y - 360 : eulerAngles.y;
-        float zAngle = eulerAngles.z > 180 ? eulerAngles.z - 360 : eulerAngles.z;
+        Quaternion handRotation = wristPose.GetLocalRotation(handType);
 
-        // 각도 범위 내에 있는지 확인
-        return (xAngle >= minActivationAngle.x && xAngle <= maxActivationAngle.x) &&
-               (yAngle >= minActivationAngle.y && yAngle <= maxActivationAngle.y) &&
-               (zAngle >= minActivationAngle.z && zAngle <= maxActivationAngle.z);
+        float zAngle = handRotation.eulerAngles.z;
+
+        // 손목을 돌렸을 때 UI 활성화
+        if (zAngle > 200f && zAngle < 300f && !wristUICanvas.gameObject.activeSelf)
+        {
+            wristUICanvas.gameObject.SetActive(true);
+        }
+
+        // 손목을 원래 위치로 되돌렸을 때 UI 비활성화
+        if ((zAngle <= 200f || zAngle >= 300f) && wristUICanvas.gameObject.activeSelf)
+        {
+            wristUICanvas.gameObject.SetActive(false);
+        }
     }
 }

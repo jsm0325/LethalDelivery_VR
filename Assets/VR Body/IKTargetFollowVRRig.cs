@@ -24,7 +24,7 @@ public class IKTargetFollowVRRig : MonoBehaviour
     public VRMap head;
     public VRMap leftHand;
     public VRMap rightHand;
-    public VRMap Wrist;
+    public VRMap Waist;
     public VRMap leftFoot;
     public VRMap rightFoot;
 
@@ -48,7 +48,7 @@ public class IKTargetFollowVRRig : MonoBehaviour
                 leftIKFootSolver.enabled = false;
                 rightIKFootSolver.enabled = false;
             }
-            Wrist.Map();
+            Waist.Map();
             leftFoot.Map();
             rightFoot.Map();
         }else

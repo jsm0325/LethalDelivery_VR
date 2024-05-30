@@ -8,6 +8,7 @@ public class MoveMap : MonoBehaviour
     public static bool isPlayerInTrigger = false;
     private float keyPressDuration = 0.0f;
     private float requiredPressTime = 3.0f;
+    public string sceneMap = "";
 
     private void OnTriggerEnter(Collider other)
     {
@@ -37,7 +38,7 @@ public class MoveMap : MonoBehaviour
             keyPressDuration += Time.deltaTime;
             if (keyPressDuration >= requiredPressTime)
             {
-                SceneManager.LoadScene("SafeZone");
+                SceneManager.LoadScene(sceneMap);
                 UIManager.Instance.ShowInteractionMessage("", false);
             }
         }

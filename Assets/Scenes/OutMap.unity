@@ -19244,6 +19244,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d4cad3a7e75cab45b30afec8da28a26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sceneNames: SafeZone
 --- !u!1001 &1955016549
 PrefabInstance:
   m_ObjectHideFlags: 0

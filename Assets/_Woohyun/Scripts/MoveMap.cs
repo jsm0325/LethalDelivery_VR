@@ -40,6 +40,7 @@ public class MoveMap : MonoBehaviour
                 InventoryManager.Instance.SaveItemData();
 
                 SceneManager.LoadScene(sceneMap);
+                isPlayerInTrigger = false;
                 UIManager.Instance.ShowInteractionMessage("", false);
             }
         }

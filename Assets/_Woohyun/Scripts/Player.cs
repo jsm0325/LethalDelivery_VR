@@ -43,6 +43,7 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        Debug.Log(MoveMap.isPlayerInTrigger);
         if (GameManager.Instance.isGameOver)
         {
             return;
@@ -120,6 +121,7 @@ public class Player : MonoBehaviour
         nearbyItem = null;
         UIManager.Instance.ShowItemInfo(false);
     }
+
 
     //레이캐스트로 날짜 넘기는 트리거 체크
     void CheckForDayAdvanceTrigger()

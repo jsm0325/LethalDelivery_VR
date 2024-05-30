@@ -43,7 +43,6 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(MoveMap.isPlayerInTrigger);
         if (GameManager.Instance.isGameOver)
         {
             return;
@@ -173,7 +172,7 @@ public class Player : MonoBehaviour
         Item itemToDrop = UIManager.Instance.GetSelectedQuickSlotItem(currentSlot);
         if (itemToDrop != null)
         {
-            Vector3 dropPosition = transform.position + transform.forward + transform.up;
+            Vector3 dropPosition = mainCamera.transform.position + mainCamera.transform.forward * 2.0f;
             itemToDrop.Drop(dropPosition);
             InventoryManager.Instance.RemoveItem(itemToDrop); // 인벤토리에서 아이템 제거 및 씬으로 반환
             UIManager.Instance.RemoveItemFromQuickSlot(currentSlot);

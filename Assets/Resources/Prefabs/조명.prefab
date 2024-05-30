@@ -93,8 +93,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.53008366, y: 1.7228076, z: 0.6709342}
-  m_Center: {x: -0.061900616, y: 0.9181591, z: 0.1645329}
+  m_Size: {x: 0.53008366, y: 1.7228076, z: 0.9804764}
+  m_Center: {x: -0.061900616, y: 0.9181591, z: 0.00976181}
 --- !u!114 &618631607
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -110,3 +110,4 @@ MonoBehaviour:
   itemName: "\uC870\uBA85"
   icon: {fileID: 21300000, guid: 8aeb2af1368968744b572fc01ca3741c, type: 3}
   value: 200
+  prefab: {fileID: 7273725910161816175}

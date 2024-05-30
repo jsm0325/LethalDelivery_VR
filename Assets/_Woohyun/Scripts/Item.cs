@@ -1,23 +1,26 @@
 using UnityEngine;
+using System;
 
 public class Item : MonoBehaviour
 {
+    public string itemID { get; private set; }
     public string itemName;
     public Sprite icon;
     public int value;
 
-
+    private void Awake()
+    {
+        itemID = Guid.NewGuid().ToString();
+    }
 
     public void Pickup()
     {
         gameObject.SetActive(false);
-
     }
 
+    public void Drop(Vector3 dropPosition)
+    {
+        transform.position = dropPosition;
+        gameObject.SetActive(true);
+    }
 }
-/*
-    Item 처리를 하기 위한 절차
-    1. Item 레이어 부여
-    2. RigidBody 부여
-    3. Collider 부여 (트리거 X)
-*/

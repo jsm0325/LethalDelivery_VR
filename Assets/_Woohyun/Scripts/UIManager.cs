@@ -17,13 +17,12 @@ public class UIManager : MonoBehaviour
     [Header("게임 오버 패널")]
     public GameObject gameOverPanel;
 
-    [Header("하루 넘기는 버튼 상호작용 메세지")]
+    [Header("상호작용 메세지")]
     [SerializeField]
     private GameObject interactionBackground;
     [SerializeField]
     private TextMeshProUGUI interactionText;
 
-    //아이템 정보 표시
     [Header("아이템 정보 UI")]
     [SerializeField]
     private GameObject itemInfoBackground;
@@ -32,12 +31,13 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI itemValueText;
 
-    public static UIManager Instance;
-
     [Header("퀵슬롯")]
     [SerializeField]
     private Image[] slotImages;
-    private Item[] items;
+
+    private Item[] quickSlotItems;
+
+    public static UIManager Instance;
 
     void Awake()
     {
@@ -51,7 +51,7 @@ public class UIManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        items = new Item[slotImages.Length];
+        quickSlotItems = new Item[slotImages.Length];
     }
 
     private void Start()
@@ -85,7 +85,7 @@ public class UIManager : MonoBehaviour
     public void UpdateItemInfoUI(string itemName, int itemValue)
     {
         itemNameText.text = itemName;
-        itemValueText.text = itemValue.ToString() + "원";
+        itemValueText.text = $"{itemValue}원";
     }
 
     public void ShowItemInfo(bool show)
@@ -114,10 +114,10 @@ public class UIManager : MonoBehaviour
         {
             if (!slotImage.enabled)
             {
-                return false; // 빈 슬롯이 하나라도 있으면 꽉 차지 않은 상태
+                return false;
             }
         }
-        return true; // 모든 슬롯이 채워져 있으면 꽉 찬 상태
+        return true;
     }
 
     public void AddItemToQuickSlot(Item item)
@@ -128,7 +128,7 @@ public class UIManager : MonoBehaviour
             {
                 slotImages[i].sprite = item.icon;
                 slotImages[i].enabled = true;
-                items[i] = item;
+                quickSlotItems[i] = item;
                 Debug.Log($"{item.itemName} 아이템 {i + 1}번 슬롯에 추가");
                 break;
             }
@@ -141,7 +141,7 @@ public class UIManager : MonoBehaviour
         {
             slotImages[index].sprite = null;
             slotImages[index].enabled = false;
-            items[index] = null;
+            quickSlotItems[index] = null;
         }
     }
 
@@ -149,7 +149,7 @@ public class UIManager : MonoBehaviour
     {
         if (index >= 0 && index < slotImages.Length && slotImages[index].enabled)
         {
-            return items[index];
+            return quickSlotItems[index];
         }
         return null;
     }

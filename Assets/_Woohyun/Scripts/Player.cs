@@ -83,12 +83,12 @@ public class Player : MonoBehaviour
     }
 
     //레이캐스트로 아이템 탐색 확인
-    void CheckForItem() 
+    void CheckForItem()
     {
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
-        Debug.DrawRay(ray.origin, ray.direction * 100, Color.red); //디버그용 레이캐스트 확인
+        Debug.DrawRay(ray.origin, ray.direction * pickupRange, Color.red); // 디버그용 레이캐스트 확인
 
         if (Physics.Raycast(ray, out hit, pickupRange, itemLayer))
         {
@@ -130,36 +130,32 @@ public class Player : MonoBehaviour
         }
     }
 
-    //아이템 줍기
     void PickupItem()
     {
         if (nearbyItem != null)
         {
-            // 퀵슬롯이 모두 꽉 찼는지 확인
             if (UIManager.Instance.IsQuickSlotFull())
             {
                 Debug.Log("퀵슬롯이 모두 꽉 찼습니다!");
-                return; // 아이템을 줍지 않고 메서드 종료
+                return;
             }
 
             UIManager.Instance.AddItemToQuickSlot(nearbyItem);
-            nearbyItem.Pickup();
+            nearbyItem.Pickup(); // 아이템 오브젝트 비활성화
             nearbyItem = null;
             UIManager.Instance.ShowItemInfo(false);
         }
     }
 
-    //아이템 버리기
     void DropItem()
     {
         Item itemToDrop = UIManager.Instance.GetSelectedQuickSlotItem(currentSlot);
         if (itemToDrop != null)
         {
             Vector3 dropPosition = transform.position + transform.forward;
-            itemToDrop.gameObject.SetActive(true);
-            itemToDrop.transform.position = dropPosition; // 현재 위치에 아이템 드랍
+            itemToDrop.Drop(dropPosition); // 아이템 오브젝트 활성화 및 위치 재설정
             UIManager.Instance.RemoveItemFromQuickSlot(currentSlot);
-            Debug.Log(currentSlot + 1 + "번 슬롯 아이템 드랍");
+            Debug.Log($"{currentSlot + 1}번 슬롯 아이템 드랍");
         }
     }
 

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.IO;
+using System.Linq;
 using System;
 
 public class InventoryManager : MonoBehaviour
@@ -26,10 +27,10 @@ public class InventoryManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-            SceneManager.sceneLoaded += OnSceneLoaded; // 씬이 로드될 때 호출
+            SceneManager.sceneLoaded += OnSceneLoaded;
 
-            UpdateSaveFilePath(); // 초기 파일 경로 설정
-            InitializeItemData(); // 게임 실행 시 아이템 데이터 초기화
+            InitializeAllItemData(); // 모든 씬의 데이터 초기화
+            UpdateSaveFilePath(); // 현재 씬 파일 경로 설정
         }
         else
         {
@@ -41,15 +42,15 @@ public class InventoryManager : MonoBehaviour
     {
         if (Instance == this)
         {
-            SceneManager.sceneLoaded -= OnSceneLoaded; // 이벤트 해제
+            SceneManager.sceneLoaded -= OnSceneLoaded;
         }
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        UpdateSaveFilePath(); // 씬이 로드될 때마다 파일 경로 업데이트
-        LoadItemData(); // 씬이 로드될 때마다 데이터 로드
-        RestoreItems(); // 아이템 복원
+        UpdateSaveFilePath();
+        LoadItemData();
+        RestoreItems();
     }
 
     private void UpdateSaveFilePath()
@@ -58,15 +59,14 @@ public class InventoryManager : MonoBehaviour
         saveFilePath = Path.Combine(Application.persistentDataPath, $"{sceneName}_itemData.json");
     }
 
-    private void InitializeItemData()
+    private void InitializeAllItemData()
     {
-        if (File.Exists(saveFilePath))
+        string[] files = Directory.GetFiles(Application.persistentDataPath, "*_itemData.json");
+        foreach (var file in files)
         {
-            File.Delete(saveFilePath); // 기존 파일 삭제
+            File.Delete(file);
         }
-
         itemDataList.Clear();
-        SaveItemData(); // 빈 데이터로 초기화
     }
 
     public void AddItem(Item item)
@@ -75,7 +75,7 @@ public class InventoryManager : MonoBehaviour
         ItemData itemData = itemDataList.Find(data => data.itemID == item.itemID);
         if (itemData != null)
         {
-            itemDataList.Remove(itemData); // JSON 데이터에서 제거
+            itemDataList.Remove(itemData);
         }
     }
 
@@ -98,7 +98,7 @@ public class InventoryManager : MonoBehaviour
             itemData.isPickedUp = false;
             itemData.position = item.transform.position;
         }
-        item.ReturnToScene(); // 아이템을 현재 씬으로 이동
+        item.ReturnToScene();
         SaveItemData();
     }
 
@@ -123,7 +123,7 @@ public class InventoryManager : MonoBehaviour
         }
         else
         {
-            itemDataList.Clear(); // 파일이 없으면 데이터를 초기화
+            itemDataList.Clear();
         }
     }
 
@@ -146,8 +146,18 @@ public class InventoryManager : MonoBehaviour
             }
         }
     }
-}
 
+    public void RemoveItemData(string itemID)
+    {
+        ItemData itemData = itemDataList.Find(data => data.itemID == itemID);
+        if (itemData != null)
+        {
+            itemDataList.Remove(itemData);
+            SaveItemData();
+        }
+    }
+
+}
 
 
 [Serializable]

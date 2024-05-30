@@ -25,6 +25,7 @@ public class ThrowItemZone : MonoBehaviour
                     increaseValue = Mathf.FloorToInt(increaseValue * 0.5f);
                 }
                 GameManager.Instance.IncreaseCurrentValue(increaseValue);
+                InventoryManager.Instance.RemoveItemData(itemComponent.itemID);
                 other.gameObject.SetActive(false);
             }
         }

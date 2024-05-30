@@ -119,17 +119,6 @@ public class UIManager : MonoBehaviour
         }
         return true;
     }
-    public int GetFirstEmptySlotIndex()
-    {
-        for (int i = 0; i < slotImages.Length; i++)
-        {
-            if (!slotImages[i].enabled)
-            {
-                return i;
-            }
-        }
-        return -1; // ºó ½½·ÔÀÌ ¾øÀ» ¶§
-    }
     public int AddItemToQuickSlot(Item item)
     {
         for (int i = 0; i < slotImages.Length; i++)

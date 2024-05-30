@@ -15,7 +15,7 @@ public class Player : MonoBehaviour
     private Camera mainCamera;
     private int currentSlot = 0;
 
-    public GameObject[] quickSlotPrefabs = new GameObject[4];
+
 
     private static Player instance;
 
@@ -38,6 +38,7 @@ public class Player : MonoBehaviour
     {
         mainCamera = Camera.main;
         UIManager.Instance.ShowItemInfo(false);
+        InventoryManager.Instance.RestoreItems();
     }
 
     void Update()
@@ -157,7 +158,6 @@ public class Player : MonoBehaviour
             int slotIndex = UIManager.Instance.AddItemToQuickSlot(nearbyItem);
             if (slotIndex != -1)
             {
-                quickSlotPrefabs[slotIndex] = nearbyItem.gameObject; // 해당 퀵슬롯에 프리팹 저장
                 InventoryManager.Instance.AddItem(nearbyItem); // 인벤토리에 아이템 추가
                 nearbyItem.Pickup(); // 아이템 오브젝트 비활성화
                 nearbyItem = null;
@@ -169,17 +169,17 @@ public class Player : MonoBehaviour
     void DropItem()
     {
         Item itemToDrop = UIManager.Instance.GetSelectedQuickSlotItem(currentSlot);
-        if (itemToDrop != null && quickSlotPrefabs[currentSlot] != null)
+        if (itemToDrop != null)
         {
             Vector3 dropPosition = transform.position + transform.forward + transform.up;
-            GameObject droppedItem = Instantiate(quickSlotPrefabs[currentSlot], dropPosition, Quaternion.identity); // 저장된 프리팹을 사용하여 아이템 생성
-            itemToDrop.Drop(dropPosition); // 아이템 오브젝트 활성화 및 위치 재설정
-            InventoryManager.Instance.RemoveItem(itemToDrop); // 인벤토리에서 아이템 제거
+            itemToDrop.Drop(dropPosition);
+            InventoryManager.Instance.RemoveItem(itemToDrop); // 인벤토리에서 아이템 제거 및 씬으로 반환
             UIManager.Instance.RemoveItemFromQuickSlot(currentSlot);
-            quickSlotPrefabs[currentSlot] = null; // 프리팹 배열에서 제거
             Debug.Log($"{currentSlot + 1}번 슬롯 아이템 드랍");
         }
     }
+
+
 
     // 하루 넘기는 버튼에서 F키 눌렀을 때 처리
     void DayPass()

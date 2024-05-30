@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using UnityEngine.SceneManagement;
 
 public class Item : MonoBehaviour
 {
@@ -8,10 +9,12 @@ public class Item : MonoBehaviour
     public Sprite icon;
     public int value;
 
-
     private void Awake()
     {
-        itemID = Guid.NewGuid().ToString();
+        if (string.IsNullOrEmpty(itemID))
+        {
+            itemID = Guid.NewGuid().ToString();
+        }
     }
 
     public void Pickup()
@@ -23,5 +26,15 @@ public class Item : MonoBehaviour
     {
         transform.position = dropPosition;
         gameObject.SetActive(true);
+    }
+
+    public void SetItemID(string id)
+    {
+        itemID = id;
+    }
+
+    public void ReturnToScene()
+    {
+        SceneManager.MoveGameObjectToScene(gameObject, SceneManager.GetActiveScene());
     }
 }

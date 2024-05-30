@@ -7,16 +7,15 @@ public class MoveMap : MonoBehaviour
 {
     public static bool isPlayerInTrigger = false;
     private float keyPressDuration = 0.0f;
-    private float requiredPressTime = 3.0f;
+    private float requiredPressTime = 1.0f;
     public string sceneMap = "";
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            UIManager.Instance.ShowInteractionMessage("F 3초, 들어가기", true);
+            UIManager.Instance.ShowInteractionMessage("F 1초, 들어가기", true);
             isPlayerInTrigger = true;
-
         }
     }
 
@@ -27,7 +26,6 @@ public class MoveMap : MonoBehaviour
             UIManager.Instance.ShowInteractionMessage("", false);
             isPlayerInTrigger = false;
             keyPressDuration = 0.0f; // Reset the key press duration when the player exits the trigger
-
         }
     }
 
@@ -38,6 +36,9 @@ public class MoveMap : MonoBehaviour
             keyPressDuration += Time.deltaTime;
             if (keyPressDuration >= requiredPressTime)
             {
+                // 씬 이동 전 데이터 저장
+                InventoryManager.Instance.SaveItemData();
+
                 SceneManager.LoadScene(sceneMap);
                 UIManager.Instance.ShowInteractionMessage("", false);
             }

@@ -152,7 +152,7 @@ public class Player : MonoBehaviour
         Item itemToDrop = UIManager.Instance.GetSelectedQuickSlotItem(currentSlot);
         if (itemToDrop != null)
         {
-            Vector3 dropPosition = transform.position + transform.forward;
+            Vector3 dropPosition = transform.position + transform.forward +transform.up;
             itemToDrop.Drop(dropPosition); // 아이템 오브젝트 활성화 및 위치 재설정
             UIManager.Instance.RemoveItemFromQuickSlot(currentSlot);
             Debug.Log($"{currentSlot + 1}번 슬롯 아이템 드랍");

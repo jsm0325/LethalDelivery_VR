@@ -8,6 +8,7 @@ public class Item : MonoBehaviour
     public Sprite icon;
     public int value;
 
+
     private void Awake()
     {
         itemID = Guid.NewGuid().ToString();

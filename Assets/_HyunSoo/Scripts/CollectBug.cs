@@ -6,22 +6,22 @@ using UnityEngine.AI;
 public class CollectBug : Enemy
 {
     public bool isGivenItem = false; // change this due to motions and movements
+    private Transform itembox;
 
     void Awake()
     {
         name = "CollectBug";
+        itembox = GameObject.Find("itembox").GetComponent<Transform>();
     }
 
     public override void Update()
     {
         base.Update();
-        if (state == State.wander)
-        {
-            isGivenItem = false;
-        }
         if (state == State.encounter)
         {
             //anim encounter, check isGivenItem
+            if (isGivenItem == false)
+                state = State.kill;
         }
         if (state == State.kill)
         {
@@ -29,5 +29,9 @@ public class CollectBug : Enemy
             if (Vector3.Distance(transform.position, player.position) <= killDis)
                 GameObject.Destroy(player.gameObject);
         }
+        if (isGivenItem == true)
+            state = State.pickup;
+        if (state == State.pickup)
+            agent.SetDestination(itembox.position);
     }
 }

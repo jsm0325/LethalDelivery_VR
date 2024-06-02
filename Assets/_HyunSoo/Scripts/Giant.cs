@@ -13,13 +13,11 @@ public class Giant : Enemy
     public override void Update()
     {
         base.Update();
-        if(state == State.wander)
-        {
-            isPlayerBig = false;
-        }
         if(state == State.encounter)
         {
             //anim encounter, check isplayerbig
+            if (isPlayerBig == false)
+                state = State.kill;
         }
         if(state == State.kill)
         {

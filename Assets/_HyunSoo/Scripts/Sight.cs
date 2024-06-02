@@ -18,7 +18,6 @@ public class Sight : MonoBehaviour
                 transform.GetComponentInParent<Enemy>().state = Enemy.State.encounter;
             else
             {
-                transform.GetComponentInParent<NoEye>().isEarOn = true;
                 transform.GetComponentInParent<Enemy>().state = Enemy.State.encounter;
             }
         }
@@ -26,6 +25,12 @@ public class Sight : MonoBehaviour
         {
             //collect
             transform.GetComponentInParent<CollectBug>().isGivenItem = true;
+        }
+        if (col.tag == "itembox" && transform.GetComponentInParent<Enemy>().name == "CollectBug")
+        {
+            //collect
+            transform.GetComponentInParent<CollectBug>().isGivenItem = false;
+            transform.GetComponentInParent<CollectBug>().state = Enemy.State.wander;
         }
     }
 
@@ -42,13 +47,9 @@ public class Sight : MonoBehaviour
                 transform.GetComponentInParent<Enemy>().state = Enemy.State.wander;
             }
 
-            if (transform.GetComponentInParent<Enemy>().name == "NoEye" && transform.GetComponentInParent<NoEye>().isEarOn == false)
+            if (transform.GetComponentInParent<Enemy>().name == "NoEye")
             {
                 transform.GetComponentInParent<Enemy>().state = Enemy.State.kill;
-            }
-            else if (transform.GetComponentInParent<Enemy>().name == "NoEye" && transform.GetComponentInParent<NoEye>().isEarOn == true)
-            {
-                transform.GetComponentInParent<Enemy>().state = Enemy.State.wander;
             }
         }
     }
@@ -61,7 +62,6 @@ public class Sight : MonoBehaviour
                 transform.GetComponentInParent<Enemy>().state = Enemy.State.wander;
             else
             {
-                transform.GetComponentInParent<NoEye>().isEarOn = false;
                 transform.GetComponentInParent<Enemy>().state = Enemy.State.wander;
             }
         }

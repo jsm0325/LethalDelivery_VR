@@ -10,7 +10,7 @@ public class Enemy : MonoBehaviour
     public string name;
 
     private float wanderRadius = 10.0f;
-    public enum State { wander, encounter, kill };
+    public enum State { wander, encounter, kill, pickup };
     public State state;
     public float killDis = 0.5f;
     private Vector3 wanderPosition;

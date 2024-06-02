@@ -8,6 +8,7 @@ TagManager:
   - FxTemporaire
   - Enemy
   - CinemachineTarget
+  - itembox
   layers:
   - Default
   - TransparentFX

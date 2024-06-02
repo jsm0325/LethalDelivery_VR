@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class NoEye : Enemy
 {
-    public bool isEarOn = false; // change this due to motions and movements
     private AudioSource audioSource;
     private float detectionRange;
     void Awake()

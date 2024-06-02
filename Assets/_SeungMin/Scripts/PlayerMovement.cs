@@ -25,13 +25,7 @@ public class PlayerMovement : MonoBehaviour
         m_CharacterController = GetComponent<CharacterController>();
         m_CameraRig = SteamVR_Render.Top().origin;
         m_head = SteamVR_Render.Top().head;
-        m_CharacterController.transform.position = m_head.position;
-        // 플레이어 리그의 초기 위치 설정
-        if (m_CameraRig != null && m_head != null)
-        {
-            lastHeadPosition = m_head.position; // 초기 카메라 리그 위치 저장
-        }
-        
+        m_CharacterController.transform.position = m_head.position;        
     }
 
     private void Update()
@@ -39,9 +33,15 @@ public class PlayerMovement : MonoBehaviour
         HandleHeight();
         CalculateMovement();
         SnapRotation();
+        UpdateColliderPosition();
     }
 
-
+    void UpdateColliderPosition()
+    {
+        Vector3 newCenter = m_CameraRig.InverseTransformPoint(m_head.position);
+        newCenter.y = m_CharacterController.height / 2 + m_CharacterController.skinWidth;
+        m_CharacterController.center = newCenter;
+    }
 
     private void CalculateMovement()
     {

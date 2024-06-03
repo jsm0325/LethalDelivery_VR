@@ -31,6 +31,7 @@ public class IKTargetFollowVRRig : MonoBehaviour
     public Vector3 headBodyPositionOffset;
     public float headBodyYawOffset;
 
+    private Animator animator;
     // Update is called once per frame
     void LateUpdate()
     {
@@ -48,10 +49,11 @@ public class IKTargetFollowVRRig : MonoBehaviour
                 leftIKFootSolver.enabled = false;
                 rightIKFootSolver.enabled = false;
             }
-            Waist.Map();
+            //Waist.Map();
             leftFoot.Map();
             rightFoot.Map();
-        }else
+        }
+        else
         {
 
             if (leftIKFootSolver.enabled == false)

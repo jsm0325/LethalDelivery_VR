@@ -34,7 +34,6 @@ public class UIManager : MonoBehaviour
     [Header("Äü½½·Ô")]
     [SerializeField]
     private Image[] slotImages;
-
     private Item[] quickSlotItems;
 
     public static UIManager Instance;

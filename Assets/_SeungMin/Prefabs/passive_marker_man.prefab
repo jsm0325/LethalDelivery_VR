@@ -1226,6 +1226,8 @@ MonoBehaviour:
   m_RigLayers:
   - m_Rig: {fileID: 4489499809444418479}
     m_Active: 1
+  - m_Rig: {fileID: 0}
+    m_Active: 1
   m_Effectors: []
 --- !u!114 &4489499810222579126
 MonoBehaviour:
@@ -1324,6 +1326,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turnSmoothness: 0.1
+  leftIKFootSolver: {fileID: 0}
+  rightIKFootSolver: {fileID: 0}
+  onFullTracking: 1
   head:
     vrTarget: {fileID: 0}
     ikTarget: {fileID: 4489499809058140999}
@@ -1339,9 +1344,9 @@ MonoBehaviour:
     ikTarget: {fileID: 4489499810183945095}
     trackingPositionOffset: {x: 0, y: 0, z: 0}
     trackingRotationOffset: {x: 0, y: 0, z: 0}
-  Wrist:
+  Waist:
     vrTarget: {fileID: 0}
-    ikTarget: {fileID: 4489499808156756014}
+    ikTarget: {fileID: 0}
     trackingPositionOffset: {x: 0, y: 0, z: 0}
     trackingRotationOffset: {x: 0, y: 0, z: 0}
   leftFoot:
@@ -1371,57 +1376,26 @@ MonoBehaviour:
   animationInputs:
   - animationPropertyName: Right Pinch
     action:
-      m_UseReference: 1
-      m_Action:
-        m_Name: Action
-        m_Type: 0
-        m_ExpectedControlType: 
-        m_Id: ba887ad4-14c5-4e55-bca9-d90e0b827543
-        m_Processors: 
-        m_Interactions: 
-        m_SingletonActionBindings: []
-        m_Flags: 0
-      m_Reference: {fileID: 0}
+      actionPath: 
+      needsReinit: 0
+    inputSource: 0
   - animationPropertyName: Right Grab
     action:
-      m_UseReference: 1
-      m_Action:
-        m_Name: Action
-        m_Type: 0
-        m_ExpectedControlType: 
-        m_Id: 09140900-45f3-4522-8240-75288579104f
-        m_Processors: 
-        m_Interactions: 
-        m_SingletonActionBindings: []
-        m_Flags: 0
-      m_Reference: {fileID: 0}
+      actionPath: 
+      needsReinit: 0
+    inputSource: 0
   - animationPropertyName: Left Pinch
     action:
-      m_UseReference: 1
-      m_Action:
-        m_Name: Action
-        m_Type: 0
-        m_ExpectedControlType: 
-        m_Id: 8db7b49d-0b90-41f2-8c74-62068d591b85
-        m_Processors: 
-        m_Interactions: 
-        m_SingletonActionBindings: []
-        m_Flags: 0
-      m_Reference: {fileID: 0}
+      actionPath: 
+      needsReinit: 0
+    inputSource: 0
   - animationPropertyName: Left Grab
     action:
-      m_UseReference: 1
-      m_Action:
-        m_Name: Action
-        m_Type: 0
-        m_ExpectedControlType: 
-        m_Id: d4272c05-0fa8-45cd-bbd8-29fa30a5bfdd
-        m_Processors: 
-        m_Interactions: 
-        m_SingletonActionBindings: []
-        m_Flags: 0
-      m_Reference: {fileID: 0}
+      actionPath: 
+      needsReinit: 0
+    inputSource: 0
   animator: {fileID: 8009508879829177157}
+  smoothTime: 0.1
 --- !u!1 &3930175699414630510
 GameObject:
   m_ObjectHideFlags: 0
@@ -3228,7 +3202,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1061089040488418513
 Transform:
   m_ObjectHideFlags: 0

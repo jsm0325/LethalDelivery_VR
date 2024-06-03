@@ -19370,6 +19370,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneMap: SafeZone
+  newPlayerPosition: {x: 335.273, y: 0.15, z: 466.769}
 --- !u!1001 &1955016549
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -16,10 +16,12 @@ public class Enemy : MonoBehaviour
     public State state;
     public float killDis = 0.5f;
     private Vector3 wanderPosition;
+    public Animator anim;
 
     void Start()
     {
         agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
+        anim = GetComponent<Animator>();
         player = GameObject.Find("Player").transform;
         state = State.wander;
     }

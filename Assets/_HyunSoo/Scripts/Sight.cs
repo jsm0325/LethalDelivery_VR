@@ -25,6 +25,7 @@ public class Sight : MonoBehaviour
         {
             //collect
             transform.GetComponentInParent<CollectBug>().isGivenItem = true;
+            transform.GetComponentInParent<Enemy>().anim.SetTrigger("Pickup");
         }
         if (col.tag == "itembox" && transform.GetComponentInParent<Enemy>().name == "CollectBug")
         {

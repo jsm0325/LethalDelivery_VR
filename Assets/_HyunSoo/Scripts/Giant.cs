@@ -11,8 +11,8 @@ public class Giant : Enemy
     void Awake()
     {
         name = "Giant";
-        playerLeftArmPos = GameObject.FindGameObjectWithTag("PlayerLeftArm").GetComponent<Transform>();
-        playerRightArmPos = GameObject.FindGameObjectWithTag("PlayerRightArm").GetComponent<Transform>();
+        //playerLeftArmPos = GameObject.FindGameObjectWithTag("PlayerLeftArm").GetComponent<Transform>();
+        //playerRightArmPos = GameObject.FindGameObjectWithTag("PlayerRightArm").GetComponent<Transform>();
     }
     public override void Update()
     {
@@ -29,9 +29,11 @@ public class Giant : Enemy
         {
             agent.SetDestination(player.position);
             if (Vector3.Distance(transform.position, player.position) <= killDis)
+            {
+                anim.SetTrigger("Attack");
                 GameObject.Destroy(player.gameObject);
+            }
         }
-
         if (Vector3.Distance(playerLeftArmPos.position, playerRightArmPos.position) > 1.0f)
             isPlayerBig = true;
         else

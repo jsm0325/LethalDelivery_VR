@@ -25,7 +25,10 @@ public class NoEye : Enemy
                     state = State.kill;
                     agent.SetDestination(player.position);
                     if (Vector3.Distance(transform.position, player.position) <= killDis)
+                    {
                         GameObject.Destroy(player.gameObject);
+                        anim.SetTrigger("Attack");
+                    }
                     break;
                 }
             }

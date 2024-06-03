@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Valve.VR.Extras;
 
 public class MoveMap : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class MoveMap : MonoBehaviour
     public string sceneMap = "";
     public Vector3 newPlayerPosition;
 
+    public SteamVR_LaserPointer steamVR_LaserPointer;
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))

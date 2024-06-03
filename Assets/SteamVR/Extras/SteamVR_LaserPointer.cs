@@ -1,6 +1,7 @@
 ﻿//======= Copyright (c) Valve Corporation, All rights reserved. ===============
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace Valve.VR.Extras
 {
@@ -68,7 +69,7 @@ namespace Valve.VR.Extras
             Material newMaterial = new Material(Shader.Find("Unlit/Color"));
             newMaterial.SetColor("_Color", color);
             pointer.GetComponent<MeshRenderer>().material = newMaterial;
-            holder.SetActive(false); // 처음에 비활성화
+
         }
 
         public virtual void OnPointerIn(PointerEventArgs e)
@@ -132,15 +133,6 @@ namespace Valve.VR.Extras
             if (bHit && hit.distance < 100f)
             {
                 dist = hit.distance;
-            }
-            // 손목 UI를 가리킬 때만 레이저 포인터 활성화
-            if (bHit && hit.transform == wristUICanvas.transform && !holder.activeSelf)
-            {
-                holder.SetActive(true);
-            }
-            else if (holder.activeSelf && (hit.transform != wristUICanvas.transform || !bHit))
-            {
-                holder.SetActive(false);
             }
             if (bHit && interactWithUI.GetStateUp(pose.inputSource))
             {

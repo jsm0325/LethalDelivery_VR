@@ -31,8 +31,21 @@ public class IKTargetFollowVRRig : MonoBehaviour
     public Vector3 headBodyPositionOffset;
     public float headBodyYawOffset;
 
+    private static IKTargetFollowVRRig instance;
     private Animator animator;
     // Update is called once per frame
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
     void LateUpdate()
     {
         transform.position = head.ikTarget.position + headBodyPositionOffset;

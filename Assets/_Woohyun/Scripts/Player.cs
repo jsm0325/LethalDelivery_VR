@@ -1,5 +1,7 @@
 using TMPro;
 using UnityEngine;
+using Valve.VR;
+using Valve.VR.Extras;
 
 public class Player : MonoBehaviour
 {
@@ -12,7 +14,7 @@ public class Player : MonoBehaviour
 
     private Item nearbyItem;
     private DayPassTrigger nearbyDayAdvanceTrigger;
-    private Camera mainCamera;
+    //private Camera mainCamera;
     private int currentSlot = 0;
 
     //체력
@@ -20,7 +22,8 @@ public class Player : MonoBehaviour
     private int currentHP = 100;
 
     private static Player instance;
-
+    public SteamVR_LaserPointer steamVR_LaserPointer;
+    public SteamVR_Behaviour_Pose poseBehaviour;
     private void Awake()
     {
         if (instance == null)
@@ -35,9 +38,58 @@ public class Player : MonoBehaviour
     }
     void Start()
     {
-        mainCamera = Camera.main;
+        //mainCamera = Camera.main;
         UIManager.Instance.ShowItemInfo(false);
         InventoryManager.Instance.RestoreItems();
+        // LaserPointer 이벤트 구독
+        if (steamVR_LaserPointer != null)
+        {
+            steamVR_LaserPointer.PointerIn += OnPointerIn;
+            steamVR_LaserPointer.PointerClick += OnPointerClick;
+        }
+    }
+
+    private void OnDestroy()
+    {
+        // 이벤트 구독 해제
+        if (steamVR_LaserPointer != null)
+        {
+            steamVR_LaserPointer.PointerIn -= OnPointerIn;
+            steamVR_LaserPointer.PointerClick -= OnPointerClick;
+        }
+    }
+
+    private void OnPointerIn(object sender, PointerEventArgs e)
+    {
+        Item item = e.target.GetComponent<Item>();
+        if (item != null)
+        {
+            nearbyItem = item;
+            UIManager.Instance.UpdateItemInfoUI(item.itemName, item.value);
+            UIManager.Instance.ShowItemInfo(true);
+        }
+        else
+        {
+            nearbyItem = null;
+            UIManager.Instance.ShowItemInfo(false);
+        }
+    }
+
+    private void OnPointerClick(object sender, PointerEventArgs e)
+    {
+        if (nearbyItem != null)
+        {
+            PickupItem();
+        }
+    }
+
+    private void OnPoseUpdated(SteamVR_Behaviour_Pose fromAction, SteamVR_Input_Sources fromSource)
+    {
+        if (fromSource == SteamVR_Input_Sources.RightHand) // 오른손 컨트롤러에서 발생한 이벤트인지 확인
+        {
+            Debug.Log("Right hand pose updated");
+            // 여기에서 원하는 동작을 추가합니다.
+        }
     }
 
     void Update()
@@ -47,12 +99,12 @@ public class Player : MonoBehaviour
             return;
         }
         
-        CheckForItem();
-        CheckForDayAdvanceTrigger();
+        ///CheckForItem();
+//CheckForDayAdvanceTrigger();
 
         if (nearbyItem != null && Input.GetKeyDown(KeyCode.F)) { PickupItem(); }
         if (nearbyDayAdvanceTrigger != null && Input.GetKeyDown(KeyCode.F)) { DayPass(); }
-        if (Input.GetKeyDown(KeyCode.G)) { DropItem(); }
+        //if (Input.GetKeyDown(KeyCode.G)) { DropItem(); }
 
         //퀵슬롯
         if (Input.GetKeyDown(KeyCode.Alpha1)) { SelectSlot(0); }
@@ -72,7 +124,8 @@ public class Player : MonoBehaviour
     }
 
     //레이캐스트로 아이템 탐색 확인
-    void CheckForItem()
+   
+    /*void CheckForItem()
     {
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
@@ -118,7 +171,7 @@ public class Player : MonoBehaviour
         {
             UIManager.Instance.ShowInteractionMessage("", false);
         }
-    }
+    }*/
 
     void PickupItem()
     {
@@ -140,7 +193,7 @@ public class Player : MonoBehaviour
             }
         }
     }
-
+    /*
     void DropItem()
     {
         Item itemToDrop = UIManager.Instance.GetSelectedQuickSlotItem(currentSlot);
@@ -152,7 +205,7 @@ public class Player : MonoBehaviour
             UIManager.Instance.RemoveItemFromQuickSlot(currentSlot);
             Debug.Log($"{currentSlot + 1}번 슬롯 아이템 드랍");
         }
-    }
+    }*/
 
     // 하루 넘기는 버튼에서 F키 눌렀을 때 처리
     void DayPass()

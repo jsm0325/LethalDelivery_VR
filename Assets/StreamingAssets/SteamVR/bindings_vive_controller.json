@@ -197,26 +197,28 @@
             },
             {
                "inputs" : {
+                  "position" : {
+                     "output" : "/actions/default/in/righttouchpadposition"
+                  }
+               },
+               "mode" : "trackpad",
+               "path" : "/user/hand/right/input/trackpad"
+            },
+            {
+               "inputs" : {
                   "click" : {
-                     "output" : "/actions/default/in/teleport"
+                     "output" : "/actions/default/in/touchpadbutton"
                   },
                   "position" : {
-                     "output" : "/actions/default/in/touchpadposition"
+                     "output" : "/actions/default/in/lefttouchpadposition"
                   }
                },
                "mode" : "trackpad",
                "path" : "/user/hand/left/input/trackpad"
             },
             {
-               "inputs" : {
-                  "click" : {
-                     "output" : "/actions/default/in/teleport"
-                  },
-                  "position" : {
-                     "output" : "/actions/default/in/touchpadposition"
-                  }
-               },
-               "mode" : "trackpad",
+               "inputs" : {},
+               "mode" : "none",
                "path" : "/user/hand/right/input/trackpad"
             }
          ]

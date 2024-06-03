@@ -50,7 +50,16 @@
       "type": "boolean"
     },
     {
-      "name": "/actions/default/in/TouchpadPosition",
+      "name": "/actions/default/in/RightTouchpadPosition",
+      "type": "vector2",
+      "requirement": "mandatory"
+    },
+    {
+      "name": "/actions/default/in/TouchpadButton",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/default/in/LeftTouchpadPosition",
       "type": "vector2",
       "requirement": "mandatory"
     },

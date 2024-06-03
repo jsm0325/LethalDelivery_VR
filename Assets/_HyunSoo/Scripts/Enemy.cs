@@ -9,6 +9,8 @@ public class Enemy : MonoBehaviour
     public Transform player;
     public string name;
 
+    public float hp = 10;
+
     private float wanderRadius = 10.0f;
     public enum State { wander, encounter, kill, pickup };
     public State state;

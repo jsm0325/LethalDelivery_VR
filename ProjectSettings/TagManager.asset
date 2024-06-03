@@ -9,6 +9,8 @@ TagManager:
   - Enemy
   - CinemachineTarget
   - itembox
+  - PlayerRightArm
+  - PlayerLeftArm
   layers:
   - Default
   - TransparentFX

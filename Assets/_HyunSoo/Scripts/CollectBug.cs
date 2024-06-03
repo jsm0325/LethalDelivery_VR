@@ -22,6 +22,8 @@ public class CollectBug : Enemy
             //anim encounter, check isGivenItem
             if (isGivenItem == false)
                 state = State.kill;
+            else
+                state = State.wander;
         }
         if (state == State.kill)
         {

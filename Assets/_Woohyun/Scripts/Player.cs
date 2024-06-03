@@ -15,19 +15,18 @@ public class Player : MonoBehaviour
     private Camera mainCamera;
     private int currentSlot = 0;
 
-
+    //체력
+    private int maxHP = 100;
+    private int currentHP = 100;
 
     private static Player instance;
 
-
-
     private void Awake()
     {
-        // Singleton 패턴을 사용하여 중복 인스턴스가 생기지 않도록 합니다.
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject); // 씬 전환 시 삭제되지 않도록 설정
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -51,40 +50,15 @@ public class Player : MonoBehaviour
         CheckForItem();
         CheckForDayAdvanceTrigger();
 
-        if (nearbyItem != null && Input.GetKeyDown(KeyCode.F))
-        {
-            PickupItem();
-        }
+        if (nearbyItem != null && Input.GetKeyDown(KeyCode.F)) { PickupItem(); }
+        if (nearbyDayAdvanceTrigger != null && Input.GetKeyDown(KeyCode.F)) { DayPass(); }
+        if (Input.GetKeyDown(KeyCode.G)) { DropItem(); }
 
-        if (nearbyDayAdvanceTrigger != null && Input.GetKeyDown(KeyCode.F))
-        {
-            DayPass();
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            SelectSlot(0);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            SelectSlot(1);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            SelectSlot(2);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            SelectSlot(3);
-        }
-
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            DropItem();
-        }
+        //퀵슬롯
+        if (Input.GetKeyDown(KeyCode.Alpha1)) { SelectSlot(0); }
+        if (Input.GetKeyDown(KeyCode.Alpha2)) { SelectSlot(1); }
+        if (Input.GetKeyDown(KeyCode.Alpha3)) { SelectSlot(2); }
+        if (Input.GetKeyDown(KeyCode.Alpha4)) { SelectSlot(3); }
     }
 
     void SelectSlot(int index)
@@ -179,8 +153,6 @@ public class Player : MonoBehaviour
             Debug.Log($"{currentSlot + 1}번 슬롯 아이템 드랍");
         }
     }
-
-
 
     // 하루 넘기는 버튼에서 F키 눌렀을 때 처리
     void DayPass()

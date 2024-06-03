@@ -60,7 +60,6 @@ MonoBehaviour:
   - {fileID: 5414183328161709448}
   - {fileID: 4059212503342652306}
   - {fileID: 1394955850343936239}
-  - {fileID: 2696643851865726336}
   - {fileID: 70418538766222028}
   - {fileID: 4013200581888503570}
   - {fileID: 2802846309424858918}
@@ -569,6 +568,26 @@ MonoBehaviour:
   featureIdInternal: com.unity.openxr.feature.input.hpreverb
   openxrExtensionStrings: XR_EXT_hp_mixed_reality_controller
   company: Unity
+  priority: 0
+  required: 0
+--- !u!114 &4235634374076060096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52e1656fb2c174a4e88e53bfaf04f6aa, type: 3}
+  m_Name: HTCViveTrackerProfile Standalone
+  m_EditorClassIdentifier: 
+  m_enabled: 0
+  nameUi: 
+  version: 
+  featureIdInternal: 
+  openxrExtensionStrings: 
+  company: 
   priority: 0
   required: 0
 --- !u!114 &4401915011805171643

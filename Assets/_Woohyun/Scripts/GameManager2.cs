@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager2 : MonoBehaviour
 {
@@ -87,8 +88,22 @@ public class GameManager2 : MonoBehaviour
     private void GameOver()
     {
         isGameOver = true;
-        UIManager.Instance.ShowGameOverUI(true);
+        SceneManager.LoadScene("Gameover");
+        SceneManager.sceneLoaded += OnSceneLoaded;
         Debug.Log("게임 오버");
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        // 씬이 로드된 후 Player의 새로운 위치를 설정
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+        {
+            player.transform.position = new Vector3(0,0,0);
+        }
+
+        // 씬 로드 이벤트 등록 해제
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
     public void StartNewGame()

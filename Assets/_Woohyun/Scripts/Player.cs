@@ -19,7 +19,7 @@ public class Player : MonoBehaviour
 
     //Ã¼·Â
     private int maxHP = 100;
-    private int currentHP = 100;
+    public int currentHP = 100;
 
     private static Player instance;
     public SteamVR_LaserPointer steamVR_LaserPointer;

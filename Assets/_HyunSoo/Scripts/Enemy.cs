@@ -18,7 +18,7 @@ public class Enemy : MonoBehaviour
     private Vector3 wanderPosition;
     public Animator anim;
 
-    void Start()
+    public virtual void Start()
     {
         agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
         anim = GetComponent<Animator>();
@@ -43,5 +43,18 @@ public class Enemy : MonoBehaviour
                 }
                 break;
         }
+
+        if (hp == 0)
+        {
+            agent = null;
+            StartCoroutine(Remove(5.0f));
+        }
+    }
+
+    IEnumerator Remove(float delay)
+    {
+        anim.SetTrigger("Dead");
+        yield return new WaitForSeconds(delay);
+        Destroy(gameObject);
     }
 }

@@ -50,7 +50,7 @@ public class Sight : MonoBehaviour
 
             if (transform.GetComponentInParent<Enemy>().name == "NoEye")
             {
-                transform.GetComponentInParent<Enemy>().state = Enemy.State.kill;
+                transform.GetComponentInParent<Enemy>().state = Enemy.State.encounter;
             }
         }
     }

@@ -7,11 +7,12 @@ public class CollectBug : Enemy
 {
     public bool isGivenItem = false; // change this due to motions and movements
     private Transform itembox;
-
-    void Awake()
+    public override void Start()
     {
+        base.Start();
         name = "CollectBug";
         itembox = GameObject.Find("itembox").GetComponent<Transform>();
+        hp = 1.0f;
     }
 
     public override void Update()
@@ -29,7 +30,10 @@ public class CollectBug : Enemy
         {
             agent.SetDestination(player.position);
             if (Vector3.Distance(transform.position, player.position) <= killDis)
-                GameObject.Destroy(player.gameObject);
+            {
+                anim.SetTrigger("Attack");
+                player.GetComponent<Player>().currentHP -= 10;
+            }
         }
         if (isGivenItem == true)
             state = State.pickup;

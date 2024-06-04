@@ -7,6 +7,9 @@ public class NoEye : Enemy
     private AudioSource audioSource;
     private float detectionRange;
     private bool isDamaging = false;
+    public bool isPlayerStanding = true;
+    private Transform playerHeadPos;
+    private Transform rightLegPos;
     public override void Start()
     {
         base.Start();
@@ -14,6 +17,8 @@ public class NoEye : Enemy
         name = "NoEye";
         detectionRange = 5.0f;
         hp = 3.0f;
+        playerHeadPos = GameObject.FindGameObjectWithTag("PlayerHead").GetComponent<Transform>();
+        rightLegPos = GameObject.FindGameObjectWithTag("PlayerRightLeg").GetComponent<Transform>();
     }
     public override void Update()
     {
@@ -24,7 +29,7 @@ public class NoEye : Enemy
         }
         if (state == State.encounter)
         {
-            if (audioSource.isPlaying)
+            if (audioSource.isPlaying || isPlayerStanding == true)
             {
                 Collider[] colliders = Physics.OverlapSphere(transform.position, detectionRange);
                 foreach (Collider collider in colliders)
@@ -50,6 +55,10 @@ public class NoEye : Enemy
                 state = State.wander;
             }
         }
+        if (Vector3.Distance(playerHeadPos.position, rightLegPos.position) > 1.0f)
+            isPlayerStanding = true;
+        else
+            isPlayerStanding = false;
     }
     IEnumerator Damage(float delay)
     {

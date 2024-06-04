@@ -11,7 +11,7 @@ public class Enemy : MonoBehaviour
 
     public float hp = 10;
 
-    private float wanderRadius = 10.0f;
+    private float wanderRadius = 30.0f;
     public enum State { wander, encounter, kill, pickup };
     public State state;
     public float killDis = 0.5f;

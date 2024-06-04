@@ -13,8 +13,8 @@ public class Giant : Enemy
     {
         base.Start();
         name = "Giant";
-        //playerLeftArmPos = GameObject.FindGameObjectWithTag("PlayerLeftArm").GetComponent<Transform>();
-        //playerRightArmPos = GameObject.FindGameObjectWithTag("PlayerRightArm").GetComponent<Transform>();
+        playerLeftArmPos = GameObject.FindGameObjectWithTag("PlayerLeftArm").GetComponent<Transform>();
+        playerRightArmPos = GameObject.FindGameObjectWithTag("PlayerRightArm").GetComponent<Transform>();
         hp = 10.0f;
     }
     public override void Update()
@@ -44,10 +44,10 @@ public class Giant : Enemy
                 }
             }
         }
-        /*if (Vector3.Distance(playerLeftArmPos.position, playerRightArmPos.position) > 1.0f)
+        if (Vector3.Distance(playerLeftArmPos.position, playerRightArmPos.position) > 1.0f)
             isPlayerBig = true;
         else
-            isPlayerBig = false;*/
+            isPlayerBig = false;
     }
 
     IEnumerator Damage(float delay)

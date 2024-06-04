@@ -25,13 +25,21 @@ public class NoEye : Enemy
     public override void Update()
     {
         base.Update();
+        if (Vector3.Distance(playerHeadPos.position, rightLegPos.position) > 1.0f)
+            isPlayerStanding = true;
+        else
+            isPlayerStanding = false;
         if (state== State.wander)
         {
             anim.SetBool("Run", false);
         }
         if (state == State.encounter)
         {
-            if (audioSource.isPlaying || isPlayerStanding == true)
+            if (isPlayerStanding == true)
+                state = State.kill;
+            else
+                state = State.wander;
+            if (audioSource.isPlaying)
             {
                 Collider[] colliders = Physics.OverlapSphere(transform.position, detectionRange);
                 foreach (Collider collider in colliders)
@@ -39,15 +47,6 @@ public class NoEye : Enemy
                     if (collider.gameObject.tag == "Player")
                     {
                         state = State.kill;
-                        anim.SetBool("Run", true);
-                        agent.SetDestination(player.position);
-                        if (Vector3.Distance(transform.position, player.position) <= killDis)
-                        {
-                            if (!isDamaging)
-                            {
-                                StartCoroutine(Damage(2.0f)); // Start damaging with a delay of 3 seconds
-                            }
-                        }
                         break;
                     }
                 }
@@ -57,10 +56,20 @@ public class NoEye : Enemy
                 state = State.wander;
             }
         }
-        if (Vector3.Distance(playerHeadPos.position, rightLegPos.position) > 1.0f)
-            isPlayerStanding = true;
-        else
-            isPlayerStanding = false;
+        if(state == State.kill)
+        {
+            anim.SetBool("Run", true);
+            agent.SetDestination(player.position);
+            if (Vector3.Distance(transform.position, player.position) <= killDis)
+            {
+                if (!isDamaging)
+                {
+                    StartCoroutine(Damage(2.0f)); // Start damaging with a delay of 3 seconds
+                }
+            }
+            
+        }
+        
     }
     IEnumerator Damage(float delay)
     {

@@ -11,6 +11,8 @@ TagManager:
   - itembox
   - PlayerRightArm
   - PlayerLeftArm
+  - PlayerRightLeg
+  - PlayerHead
   layers:
   - Default
   - TransparentFX

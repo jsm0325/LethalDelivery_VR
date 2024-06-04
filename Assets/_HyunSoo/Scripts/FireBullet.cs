@@ -8,6 +8,7 @@ public class FireBullet : MonoBehaviour
 
     public Transform muzzle;
 
+    private float destroyTime = 3f;
     public float bulletSpeed = 20f;
 
     public void Shoot()
@@ -18,6 +19,12 @@ public class FireBullet : MonoBehaviour
         if (rb != null)
         {
             rb.velocity = muzzle.forward * bulletSpeed;
+            destroyTime = 3;
+            destroyTime -= Time.deltaTime;
+            if (destroyTime <= 0)
+            {
+                Destroy(bullet);
+            }
         }
     }
 }

@@ -8,6 +8,7 @@ public class Giant : Enemy
 
     private Transform playerLeftArmPos;
     private Transform playerRightArmPos;
+    private bool isDamaging = false;
     public override void Start()
     {
         base.Start();
@@ -37,13 +38,26 @@ public class Giant : Enemy
             agent.SetDestination(player.position);
             if (Vector3.Distance(transform.position, player.position) <= killDis)
             {
-                anim.SetTrigger("Attack");
-                player.GetComponent<Player>().currentHP -= 10;
+                if (!isDamaging)
+                {
+                    StartCoroutine(Damage(3.0f)); // Start damaging with a delay of 3 seconds
+                }
             }
         }
-        if (Vector3.Distance(playerLeftArmPos.position, playerRightArmPos.position) > 1.0f)
+        /*if (Vector3.Distance(playerLeftArmPos.position, playerRightArmPos.position) > 1.0f)
             isPlayerBig = true;
         else
-            isPlayerBig = false;
+            isPlayerBig = false;*/
+    }
+
+    IEnumerator Damage(float delay)
+    {
+        isDamaging = true; // Set flag to true to prevent multiple coroutines
+        yield return new WaitForSeconds(delay);
+        transform.LookAt(player.transform);
+        anim.SetTrigger("Attack");
+        player.GetComponent<Player>().currentHP -= 10;
+        yield return new WaitForSeconds(delay); // Add delay between attacks
+        isDamaging = false; // Reset flag after delay
     }
 }

@@ -9,7 +9,7 @@ public class RandomSpawner : MonoBehaviour
 
     public Transform[] spawnPoints;
 
-    public float spawnInterval = 5f;
+    public float spawnInterval = 0.5f;
 
     void Start()
     {
@@ -36,9 +36,6 @@ public class RandomSpawner : MonoBehaviour
         }*/
         int randindex = Random.Range(0, spawnPoints.Length);
         int randomIndex = Random.Range(0, Mobs.Length);
-        Transform selectedTrans = spawnPoints[randindex];
-        GameObject selectedPrefab = Mobs[randomIndex];
-
-        Instantiate(selectedPrefab, selectedTrans);
+        Instantiate(Mobs[randomIndex], spawnPoints[randindex]);
     }
 }

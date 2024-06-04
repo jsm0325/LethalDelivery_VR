@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 1064485783}
   - component: {fileID: 1064485780}
   - component: {fileID: 1064485781}
-  - component: {fileID: 1064485770}
   m_Layer: 0
   m_Name: NoeyeSight (1)
   m_TagString: Untagged
@@ -111,22 +110,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0803a0716a15ec347a9ff8cffd28e524, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!54 &1064485770
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1064485768}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!1001 &618158265610879519
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -160,7 +143,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9656079e074e73d48903b51c0fde934e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 4.68
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9656079e074e73d48903b51c0fde934e, type: 3}
       propertyPath: m_LocalRotation.w
@@ -193,6 +176,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 9656079e074e73d48903b51c0fde934e, type: 3}
       propertyPath: m_Name
       value: noEye_prefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9656079e074e73d48903b51c0fde934e, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 2589327293762384392, guid: 9656079e074e73d48903b51c0fde934e, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -258,6 +245,20 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!136 &4180666294609541903
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 312237642265165646}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.6206453
+  m_Height: 3.7424865
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.3712432, z: 0.1206453}
 --- !u!4 &1089478410797327860 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 9656079e074e73d48903b51c0fde934e, type: 3}

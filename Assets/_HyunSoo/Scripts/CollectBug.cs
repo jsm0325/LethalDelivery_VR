@@ -7,11 +7,12 @@ public class CollectBug : Enemy
 {
     public bool isGivenItem = false; // change this due to motions and movements
     private Transform itembox;
+    private bool isDamaging = false;
     public override void Start()
     {
         base.Start();
         name = "CollectBug";
-        itembox = GameObject.Find("itembox").GetComponent<Transform>();
+        //itembox = GameObject.Find("itembox").GetComponent<Transform>();
         hp = 1.0f;
     }
 
@@ -31,13 +32,25 @@ public class CollectBug : Enemy
             agent.SetDestination(player.position);
             if (Vector3.Distance(transform.position, player.position) <= killDis)
             {
-                anim.SetTrigger("Attack");
-                player.GetComponent<Player>().currentHP -= 10;
+                if (!isDamaging)
+                {
+                    StartCoroutine(Damage(1.0f)); // Start damaging with a delay of 3 seconds
+                }
             }
         }
         if (isGivenItem == true)
             state = State.pickup;
         if (state == State.pickup)
             agent.SetDestination(itembox.position);
+    }
+    IEnumerator Damage(float delay)
+    {
+        isDamaging = true; // Set flag to true to prevent multiple coroutines
+        yield return new WaitForSeconds(delay);
+        transform.LookAt(player.transform);
+        anim.SetTrigger("Attack");
+        player.GetComponent<Player>().currentHP -= 3;
+        yield return new WaitForSeconds(delay); // Add delay between attacks
+        isDamaging = false; // Reset flag after delay
     }
 }

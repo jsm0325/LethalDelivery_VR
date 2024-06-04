@@ -22,7 +22,7 @@ public class Enemy : MonoBehaviour
     {
         agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
         anim = GetComponent<Animator>();
-        player = GameObject.Find("Player").transform;
+        player = GameObject.FindGameObjectWithTag("Player").transform;
         state = State.wander;
     }
     public virtual void Update()
@@ -46,7 +46,7 @@ public class Enemy : MonoBehaviour
 
         if (hp == 0)
         {
-            agent = null;
+            agent.isStopped = true;
             StartCoroutine(Remove(5.0f));
         }
     }

@@ -6,10 +6,11 @@ public class NoEye : Enemy
 {
     private AudioSource audioSource;
     private float detectionRange;
+    private bool isDamaging = false;
     public override void Start()
     {
         base.Start();
-        audioSource = GameObject.Find("Player").GetComponent<AudioSource>();
+        //audioSource = GameObject.Find("Player").GetComponent<AudioSource>();
         name = "NoEye";
         detectionRange = 5.0f;
         hp = 3.0f;
@@ -35,9 +36,10 @@ public class NoEye : Enemy
                         agent.SetDestination(player.position);
                         if (Vector3.Distance(transform.position, player.position) <= killDis)
                         {
-                            print("Attack");
-                            player.GetComponent<Player>().currentHP -= 10;
-                            anim.SetTrigger("Attack");
+                            if (!isDamaging)
+                            {
+                                StartCoroutine(Damage(2.0f)); // Start damaging with a delay of 3 seconds
+                            }
                         }
                         break;
                     }
@@ -48,6 +50,15 @@ public class NoEye : Enemy
                 state = State.wander;
             }
         }
-        
+    }
+    IEnumerator Damage(float delay)
+    {
+        isDamaging = true; // Set flag to true to prevent multiple coroutines
+        yield return new WaitForSeconds(delay);
+        transform.LookAt(player.transform);
+        anim.SetTrigger("Attack");
+        player.GetComponent<Player>().currentHP -= 5;
+        yield return new WaitForSeconds(delay); // Add delay between attacks
+        isDamaging = false; // Reset flag after delay
     }
 }

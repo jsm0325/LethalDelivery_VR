@@ -24,6 +24,11 @@ public class Player : MonoBehaviour
     private static Player instance;
     public SteamVR_LaserPointer steamVR_LaserPointer;
     public SteamVR_Behaviour_Pose poseBehaviour;
+    public SteamVR_Action_Boolean fireAction; // 버튼 입력을 감지할 SteamVR 액션
+    public SteamVR_Input_Sources handType;
+
+    public FireBullet FirebBullet;
+
     private void Awake()
     {
         if (instance == null)
@@ -47,6 +52,8 @@ public class Player : MonoBehaviour
             steamVR_LaserPointer.PointerIn += OnPointerIn;
             steamVR_LaserPointer.PointerClick += OnPointerClick;
         }
+
+        fireAction.AddOnStateDownListener(OnFireAction, handType);
     }
 
     private void OnDestroy()
@@ -83,12 +90,11 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void OnPoseUpdated(SteamVR_Behaviour_Pose fromAction, SteamVR_Input_Sources fromSource)
+    private void OnFireAction(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource)
     {
         if (fromSource == SteamVR_Input_Sources.RightHand) // 오른손 컨트롤러에서 발생한 이벤트인지 확인
         {
-            Debug.Log("Right hand pose updated");
-            // 여기에서 원하는 동작을 추가합니다.
+            FirebBullet.Shoot();
         }
     }
 

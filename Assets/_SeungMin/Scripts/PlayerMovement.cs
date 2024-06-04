@@ -11,7 +11,6 @@ public class PlayerMovement : MonoBehaviour
     public float m_RotateIncrement = 90;
     public float m_Gravity = 30.0f;
 
-    public SteamVR_Action_Boolean m_RotatePress = null;
     public SteamVR_Action_Boolean m_MovePress = null; // 이동 버튼 액션
     public SteamVR_Action_Vector2 m_MoveValue = null; // 이동 입력 액션
 
@@ -32,7 +31,6 @@ public class PlayerMovement : MonoBehaviour
     {
         HandleHeight();
         CalculateMovement();
-        SnapRotation();
         UpdateColliderPosition();
     }
 
@@ -50,14 +48,18 @@ public class PlayerMovement : MonoBehaviour
         Vector3 movement = Vector3.zero;
 
         // 이동하지 않는 경우
-        if (m_MoveValue.axis.magnitude == 0)
+
+        if(m_MovePress.GetState(SteamVR_Input_Sources.LeftHand)==true)
+        {       
+            // 버튼이 눌린 경우
+            m_Speed += m_MoveValue.axis.magnitude * m_Sensitivity;
+            m_Speed = Mathf.Clamp(m_Speed, -m_MaxSpeed, m_MaxSpeed);
+        }
+        else
         {
             m_Speed = 0;
         }
 
-        // 버튼이 눌린 경우
-        m_Speed += m_MoveValue.axis.magnitude * m_Sensitivity;
-        m_Speed = Mathf.Clamp(m_Speed, -m_MaxSpeed, m_MaxSpeed);
 
 
         movement += orientation * (m_Speed * Vector3.forward);
@@ -91,14 +93,4 @@ public class PlayerMovement : MonoBehaviour
         m_CharacterController.center = newCenter;
     }
 
-    private void SnapRotation()
-    {
-        float snapValue = 0.0f;
-        if (m_RotatePress.GetStateDown(SteamVR_Input_Sources.LeftHand))
-            snapValue = -Mathf.Abs(m_RotateIncrement);
-        if (m_RotatePress.GetStateDown(SteamVR_Input_Sources.RightHand))
-            snapValue = -Mathf.Abs(m_RotateIncrement);
-
-        transform.RotateAround(m_head.position, Vector3.up, snapValue);
-    }
 }

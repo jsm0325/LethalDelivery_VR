@@ -16,6 +16,7 @@ public class Giant : Enemy
         playerLeftArmPos = GameObject.FindGameObjectWithTag("PlayerLeftArm").GetComponent<Transform>();
         playerRightArmPos = GameObject.FindGameObjectWithTag("PlayerRightArm").GetComponent<Transform>();
         hp = 10.0f;
+        score = 20;
     }
     public override void Update()
     {

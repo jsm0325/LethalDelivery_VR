@@ -14,6 +14,7 @@ public class CollectBug : Enemy
         name = "CollectBug";
         //itembox = GameObject.Find("itembox").GetComponent<Transform>();
         hp = 1.0f;
+        score = 1;
     }
 
     public override void Update()

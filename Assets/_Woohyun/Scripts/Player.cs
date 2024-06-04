@@ -100,10 +100,11 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        /*
         if (GameManager.Instance.isGameOver)
         {
             return;
-        }
+        }*/
         
         ///CheckForItem();
 //CheckForDayAdvanceTrigger();

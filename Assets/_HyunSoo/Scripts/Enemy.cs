@@ -8,6 +8,7 @@ public class Enemy : MonoBehaviour
     public NavMeshAgent agent;
     public Transform player;
     public string name;
+    public int score;
 
     public float hp = 10;
 
@@ -48,6 +49,8 @@ public class Enemy : MonoBehaviour
         {
             agent.isStopped = true;
             StartCoroutine(Remove(5.0f));
+            GameManager2.Instance.IncreaseCurrentValue(score);
+
         }
     }
 

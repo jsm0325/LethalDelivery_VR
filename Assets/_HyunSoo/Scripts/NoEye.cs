@@ -17,12 +17,10 @@ public class NoEye : Enemy
         name = "NoEye";
         detectionRange = 5.0f;
         hp = 3.0f;
-<<<<<<< Updated upstream
+        score = 5;
         playerHeadPos = GameObject.FindGameObjectWithTag("PlayerHead").GetComponent<Transform>();
         rightLegPos = GameObject.FindGameObjectWithTag("PlayerRightLeg").GetComponent<Transform>();
-=======
-        score = 5;
->>>>>>> Stashed changes
+
     }
     public override void Update()
     {

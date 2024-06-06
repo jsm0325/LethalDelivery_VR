@@ -26,7 +26,7 @@ public class Mine : MonoBehaviour
         //AudioSource.PlayClipAtPoint(explosionSound, transform.position);
 
         // 폭발 이펙트 생성
-        //Instantiate(explosionEffect, transform.position, Quaternion.identity);
+        Instantiate(explosionEffect, transform.position, Quaternion.identity);
 
         // 폭발 범위 내의 모든 Collider 검색
         Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);

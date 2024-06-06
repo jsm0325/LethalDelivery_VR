@@ -157,7 +157,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turretHead: {fileID: 4477080383919461376}
-  projectilePrefab: {fileID: 5972203100701839375, guid: 39c563e6eac935c49b9f78616d0c58af, type: 3}
+  projectilePrefab: {fileID: 8798512390143988110, guid: 44902919d570b5c4a9391ba430473cd9, type: 3}
   detectionRange: 10
   fireRate: 1
   firePoint: {fileID: 4477080382260439802}

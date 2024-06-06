@@ -123,7 +123,100 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!43 &133249512
+--- !u!1 &237121648
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 237121650}
+  - component: {fileID: 237121649}
+  - component: {fileID: 237121651}
+  m_Layer: 0
+  m_Name: TrackerManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &237121649
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 237121648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 534e2136a9db45e45909da295f6d22d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftFootTracker: {fileID: 1365255478}
+  rightFootTracker: {fileID: 988633065}
+  waistTracker: {fileID: 1798653935}
+--- !u!4 &237121650
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 237121648}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -5.1459846, y: 2.5534554, z: -0.26530364}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &237121651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 237121648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6f37c6388ae6284d943ec8057ed28ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 0}
+  neckFlexionLimit: 45
+  neckExtensionLimit: 45
+  neckLateralFlexionLimit: 45
+  neckRotationLimit: 60
+  shoulderFlexionLimit: 180
+  shoulderExtensionLimit: 60
+  shoulderAbductionLimit: 180
+  shoulderAdductionLimit: 75
+  shoulderInternalRotationLimit: 70
+  shoulderExternalRotationLimit: 90
+  elbowFlexionLimit: 145
+  elbowExtensionLimit: 0
+  wristFlexionLimit: 80
+  wristExtensionLimit: 70
+  wristRadialDeviationLimit: 20
+  wristUlnarDeviationLimit: 30
+  spineFlexionLimit: 90
+  spineExtensionLimit: 30
+  spineLateralFlexionLimit: 30
+  spineRotationLimit: 45
+  hipFlexionLimit: 120
+  hipExtensionLimit: 30
+  hipAbductionLimit: 45
+  hipAdductionLimit: 30
+  hipInternalRotationLimit: 40
+  hipExternalRotationLimit: 45
+  kneeFlexionLimit: 135
+  kneeExtensionLimit: 0
+  ankleDorsiflexionLimit: 20
+  anklePlantarflexionLimit: 50
+  ankleInversionLimit: 35
+  ankleEversionLimit: 25
+--- !u!43 &315534149
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -287,99 +380,6 @@ Mesh:
     offset: 0
     size: 0
     path: 
---- !u!1 &237121648
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 237121650}
-  - component: {fileID: 237121649}
-  - component: {fileID: 237121651}
-  m_Layer: 0
-  m_Name: TrackerManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &237121649
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 237121648}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 534e2136a9db45e45909da295f6d22d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  leftFootTracker: {fileID: 1365255478}
-  rightFootTracker: {fileID: 988633065}
-  waistTracker: {fileID: 1798653935}
---- !u!4 &237121650
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 237121648}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.1459846, y: 2.5534554, z: -0.26530364}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 9
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &237121651
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 237121648}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6f37c6388ae6284d943ec8057ed28ad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 0}
-  neckFlexionLimit: 45
-  neckExtensionLimit: 45
-  neckLateralFlexionLimit: 45
-  neckRotationLimit: 60
-  shoulderFlexionLimit: 180
-  shoulderExtensionLimit: 60
-  shoulderAbductionLimit: 180
-  shoulderAdductionLimit: 75
-  shoulderInternalRotationLimit: 70
-  shoulderExternalRotationLimit: 90
-  elbowFlexionLimit: 145
-  elbowExtensionLimit: 0
-  wristFlexionLimit: 80
-  wristExtensionLimit: 70
-  wristRadialDeviationLimit: 20
-  wristUlnarDeviationLimit: 30
-  spineFlexionLimit: 90
-  spineExtensionLimit: 30
-  spineLateralFlexionLimit: 30
-  spineRotationLimit: 45
-  hipFlexionLimit: 120
-  hipExtensionLimit: 30
-  hipAbductionLimit: 45
-  hipAdductionLimit: 30
-  hipInternalRotationLimit: 40
-  hipExternalRotationLimit: 45
-  kneeFlexionLimit: 135
-  kneeExtensionLimit: 0
-  ankleDorsiflexionLimit: 20
-  anklePlantarflexionLimit: 50
-  ankleInversionLimit: 35
-  ankleEversionLimit: 25
 --- !u!4 &353915401 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6556375056966709885, guid: 4acce20cdb237fa40aa701a883a33a3f, type: 3}
@@ -811,6 +811,43 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!21 &517424206
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Sprites/Default
+  m_Shader: {fileID: 10753, guid: 0000000000000000f000000000000000, type: 0}
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _AlphaTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - PixelSnap: 0
+    - _EnableExternalAlpha: 0
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Flip: {r: 1, g: 1, b: 1, a: 1}
+    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
+  m_BuildTextureStacks: []
 --- !u!1 &586271513
 GameObject:
   m_ObjectHideFlags: 0
@@ -1076,43 +1113,6 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 785073253}
   m_Enabled: 1
---- !u!21 &859278058
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Sprites/Default
-  m_Shader: {fileID: 10753, guid: 0000000000000000f000000000000000, type: 0}
-  m_ValidKeywords: []
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _AlphaTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats:
-    - PixelSnap: 0
-    - _EnableExternalAlpha: 0
-    m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Flip: {r: 1, g: 1, b: 1, a: 1}
-    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
-  m_BuildTextureStacks: []
 --- !u!1 &891225955
 GameObject:
   m_ObjectHideFlags: 0
@@ -1547,6 +1547,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5175050462501376835, guid: 4560df1842b4c8446b60bc9780b38ed5, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8786716494445821817, guid: 4560df1842b4c8446b60bc9780b38ed5, type: 3}
+      propertyPath: detectionLayer.m_Bits
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 8786716494931847052, guid: 4560df1842b4c8446b60bc9780b38ed5, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -1595,7 +1603,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Turret
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8786716494445821816, guid: 4560df1842b4c8446b60bc9780b38ed5, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 4560df1842b4c8446b60bc9780b38ed5, type: 3}
 --- !u!223 &2126368653 stripped
 Canvas:
@@ -1848,14 +1857,18 @@ PrefabInstance:
     - target: {fileID: 6556375056963855445, guid: 4acce20cdb237fa40aa701a883a33a3f, type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 133249512}
+      objectReference: {fileID: 315534149}
     - target: {fileID: 6556375056964888017, guid: 4acce20cdb237fa40aa701a883a33a3f, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 859278058}
+      objectReference: {fileID: 517424206}
     - target: {fileID: 6556375057007780915, guid: 4acce20cdb237fa40aa701a883a33a3f, type: 3}
       propertyPath: m_Name
       value: VRController
+      objectReference: {fileID: 0}
+    - target: {fileID: 6556375057007780915, guid: 4acce20cdb237fa40aa701a883a33a3f, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6556375057007780915, guid: 4acce20cdb237fa40aa701a883a33a3f, type: 3}
       propertyPath: m_IsActive

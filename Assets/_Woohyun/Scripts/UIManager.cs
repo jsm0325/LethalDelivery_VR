@@ -33,8 +33,15 @@ public class UIManager : MonoBehaviour
 
     [Header("퀵슬롯")]
     [SerializeField]
-    private Image[] slotImages;
+    private GameObject[] slotGameObjects;
+    [SerializeField]
     private Item[] quickSlotItems;
+
+    [Header("체력")]
+    [SerializeField]
+    private Slider HPSlider;
+    [SerializeField]
+    private TextMeshProUGUI HPText;
 
     public static UIManager Instance;
 
@@ -50,15 +57,21 @@ public class UIManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        quickSlotItems = new Item[slotImages.Length];
+        quickSlotItems = new Item[slotGameObjects.Length];
     }
 
     private void Start()
     {
-        for (int i = 0; i < slotImages.Length; i++)
+        for (int i = 0; i < slotGameObjects.Length; i++)
         {
-            slotImages[i].enabled = false;
+            slotGameObjects[i].GetComponent<Image>().enabled = false;
         }
+    }
+
+    public void UpdateHPUI()
+    {
+        HPSlider.value = Player.instance.currentHP;
+        HPText.text = Player.instance.currentHP.ToString() + "%";
     }
 
     public void UpdateTimeUI(float elapsedTime, int currentDay)
@@ -66,25 +79,25 @@ public class UIManager : MonoBehaviour
         float remainingTime = GameManager.Instance.dayDuration - elapsedTime;
         int minutes = Mathf.FloorToInt(remainingTime / 60);
         int seconds = Mathf.FloorToInt(remainingTime % 60);
-        timeText.text = $"남은 시간: {minutes:D2}:{seconds:D2}";
+        timeText.text = $"{minutes:D2}:{seconds:D2}";
 
-        dayText.text = $"날짜: {currentDay}";
+        dayText.text = $"현재 {currentDay}일 생존";
     }
 
     public void UpdateMoneyUI(int currentAmount)
     {
-        moneyText.text = $"현재 금액: {currentAmount}원";
+        moneyText.text = $"현재 {currentAmount}룬";
     }
 
     public void UpdateGoalUI(int currentGoalAmount)
     {
-        goalText.text = $"목표 금액: {currentGoalAmount}원";
+        goalText.text = $"목표 {currentGoalAmount}룬";
     }
 
     public void UpdateItemInfoUI(string itemName, int itemValue)
     {
         itemNameText.text = itemName;
-        itemValueText.text = $"{itemValue}원";
+        itemValueText.text = $"{itemValue}룬";
     }
 
     public void ShowItemInfo(bool show)
@@ -109,23 +122,25 @@ public class UIManager : MonoBehaviour
     // 퀵슬롯 기능
     public bool IsQuickSlotFull()
     {
-        foreach (var slot in slotImages)
+        foreach (var slot in slotGameObjects)
         {
-            if (!slot.enabled)
+            if (!slot.GetComponent<Image>().enabled)
             {
                 return false;
             }
         }
         return true;
     }
+
     public int AddItemToQuickSlot(Item item)
     {
-        for (int i = 0; i < slotImages.Length; i++)
+        for (int i = 0; i < slotGameObjects.Length; i++)
         {
-            if (!slotImages[i].enabled)
+            Image slotImage = slotGameObjects[i].GetComponent<Image>();
+            if (!slotImage.enabled)
             {
-                slotImages[i].sprite = item.icon;
-                slotImages[i].enabled = true;
+                slotImage.sprite = item.icon;
+                slotImage.enabled = true;
                 quickSlotItems[i] = item;
                 Debug.Log($"{item.itemName} 아이템 {i + 1}번 슬롯에 추가");
                 return i; // 추가된 슬롯의 인덱스 반환
@@ -136,20 +151,33 @@ public class UIManager : MonoBehaviour
 
     public void RemoveItemFromQuickSlot(int index)
     {
-        if (index >= 0 && index < slotImages.Length)
+        if (index >= 0 && index < slotGameObjects.Length)
         {
-            slotImages[index].sprite = null;
-            slotImages[index].enabled = false;
+            slotGameObjects[index].GetComponent<Image>().sprite = null;
+            slotGameObjects[index].GetComponent<Image>().enabled = false;
             quickSlotItems[index] = null;
         }
     }
 
     public Item GetSelectedQuickSlotItem(int index)
     {
-        if (index >= 0 && index < slotImages.Length && slotImages[index].enabled)
+        if (index >= 0 && index < slotGameObjects.Length && slotGameObjects[index].GetComponent<Image>().enabled)
         {
             return quickSlotItems[index];
         }
         return null;
+    }
+
+    // 슬롯 이미지의 인덱스를 가져오는 메서드
+    public int GetSlotGameObjectIndex(GameObject slotGameObject)
+    {
+        for (int i = 0; i < slotGameObjects.Length; i++)
+        {
+            if (slotGameObjects[i] == slotGameObject)
+            {
+                return i;
+            }
+        }
+        return -1;
     }
 }

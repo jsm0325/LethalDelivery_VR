@@ -55,12 +55,9 @@ public class GameManager : MonoBehaviour
         }
 
         UIManager.Instance.UpdateTimeUI(elapsedTime, currentDay);
+        UIManager.Instance.UpdateHPUI();
 
-        if (Input.GetKey(KeyCode.LeftAlt))
-        {
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
-        }
+
     }
 
     public void DayPass()

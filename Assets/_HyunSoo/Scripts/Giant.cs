@@ -9,27 +9,36 @@ public class Giant : Enemy
     private Transform playerLeftArmPos;
     private Transform playerRightArmPos;
     private bool isDamaging = false;
+    public AudioSource sound;
+
+    public AudioClip[] giantClips;
     public override void Start()
     {
         base.Start();
         name = "Giant";
-        playerLeftArmPos = GameObject.FindGameObjectWithTag("PlayerLeftArm").GetComponent<Transform>();
-        playerRightArmPos = GameObject.FindGameObjectWithTag("PlayerRightArm").GetComponent<Transform>();
+        //playerLeftArmPos = GameObject.FindGameObjectWithTag("PlayerLeftArm").GetComponent<Transform>();
+        //playerRightArmPos = GameObject.FindGameObjectWithTag("PlayerRightArm").GetComponent<Transform>();
         hp = 10.0f;
         score = 20;
+        sound = GetComponent<AudioSource>();
+        sound.loop = true;
+        sound.Play();
     }
     public override void Update()
     {
         base.Update();
         if(state == State.wander)
         {
+            ChangeSound(giantClips[0], sound);
             anim.SetBool("Run", false);
         }
         if(state == State.encounter)
         {
-            //anim encounter, check isplayerbig
             if (isPlayerBig == false)
+            {
+                ChangeSound(giantClips[1], sound);
                 state = State.kill;
+            }
             else
                 state = State.wander;
         }
@@ -45,12 +54,29 @@ public class Giant : Enemy
                 }
             }
         }
-        if (Vector3.Distance(playerLeftArmPos.position, playerRightArmPos.position) > 1.0f)
+        float distance = Vector3.Distance(transform.position, player.position);
+        if (distance <= detectionRange)
+        {
+            sound.volume = 1.0f - (distance / detectionRange);
+        }
+        else
+        {
+            sound.volume = 0;
+        }
+        /*if (Vector3.Distance(playerLeftArmPos.position, playerRightArmPos.position) > 1.0f)
             isPlayerBig = true;
         else
-            isPlayerBig = false;
+            isPlayerBig = false;*/
     }
-
+    public void ChangeSound(AudioClip clip, AudioSource source)
+    {
+        if(source.clip != clip)
+        {
+            source.clip = clip;
+            source.loop = !source.loop;
+            source.Play();
+        }
+    }
     IEnumerator Damage(float delay)
     {
         isDamaging = true; // Set flag to true to prevent multiple coroutines

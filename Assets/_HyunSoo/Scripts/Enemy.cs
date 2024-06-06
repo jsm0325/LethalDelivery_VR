@@ -18,6 +18,9 @@ public class Enemy : MonoBehaviour
     public float killDis = 0.5f;
     private Vector3 wanderPosition;
     public Animator anim;
+    
+
+    public float detectionRange = 20f;
 
     public virtual void Start()
     {
@@ -50,7 +53,6 @@ public class Enemy : MonoBehaviour
             agent.isStopped = true;
             StartCoroutine(Remove(5.0f));
             GameManager2.Instance.IncreaseCurrentValue(score);
-
         }
     }
 

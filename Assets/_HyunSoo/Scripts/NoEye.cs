@@ -5,43 +5,54 @@ using UnityEngine;
 public class NoEye : Enemy
 {
     private AudioSource audioSource;
-    private float detectionRange;
+    private float detectedRange;
     private bool isDamaging = false;
     public bool isPlayerStanding = true;
     private Transform playerHeadPos;
     private Transform rightLegPos;
+    public AudioSource sound;
+
+    public AudioClip[] noEyeClip;
     public override void Start()
     {
         base.Start();
-        //audioSource = GameObject.Find("Player").GetComponent<AudioSource>();
+        audioSource = GameObject.Find("Player").GetComponent<AudioSource>();
         name = "NoEye";
-        detectionRange = 5.0f;
+        detectedRange = 5.0f;
         hp = 3.0f;
         score = 5;
-        playerHeadPos = GameObject.FindGameObjectWithTag("PlayerHead").GetComponent<Transform>();
-        rightLegPos = GameObject.FindGameObjectWithTag("PlayerRightLeg").GetComponent<Transform>();
+        sound = GetComponent<AudioSource>();
+        sound.loop = true;
+        sound.Play();
+        //playerHeadPos = GameObject.FindGameObjectWithTag("PlayerHead").GetComponent<Transform>();
+        //rightLegPos = GameObject.FindGameObjectWithTag("PlayerRightLeg").GetComponent<Transform>();
 
     }
     public override void Update()
     {
         base.Update();
-        if (Vector3.Distance(playerHeadPos.position, rightLegPos.position) > 1.0f)
+        /*if (Vector3.Distance(playerHeadPos.position, rightLegPos.position) > 1.0f)
             isPlayerStanding = true;
         else
-            isPlayerStanding = false;
+            isPlayerStanding = false;*/
         if (state== State.wander)
         {
+            ChangeSound(noEyeClip[0], sound);
             anim.SetBool("Run", false);
         }
         if (state == State.encounter)
         {
             if (isPlayerStanding == true)
+            {
+                ChangeSound(noEyeClip[1], sound);
                 state = State.kill;
+            }
             else
                 state = State.wander;
+
             if (audioSource.isPlaying)
             {
-                Collider[] colliders = Physics.OverlapSphere(transform.position, detectionRange);
+                Collider[] colliders = Physics.OverlapSphere(transform.position, detectedRange);
                 foreach (Collider collider in colliders)
                 {
                     if (collider.gameObject.tag == "Player")
@@ -51,10 +62,10 @@ public class NoEye : Enemy
                     }
                 }
             }
-            else
+            /*else
             {
                 state = State.wander;
-            }
+            }*/
         }
         if(state == State.kill)
         {
@@ -67,9 +78,25 @@ public class NoEye : Enemy
                     StartCoroutine(Damage(2.0f)); // Start damaging with a delay of 3 seconds
                 }
             }
-            
         }
-        
+        float distance = Vector3.Distance(transform.position, player.position);
+        if (distance <= detectionRange)
+        {
+            sound.volume = 1.0f - (distance / detectionRange);
+        }
+        else
+        {
+            sound.volume = 0;
+        }
+    }
+    public void ChangeSound(AudioClip clip, AudioSource source)
+    {
+        if (source.clip != clip)
+        {
+            source.clip = clip;
+            source.loop = !source.loop;
+            source.Play();
+        }
     }
     IEnumerator Damage(float delay)
     {

@@ -1,10 +1,13 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using Valve.VR;
 using Valve.VR.Extras;
 
 public class Player : MonoBehaviour
 {
+    public static Player instance;
+
     [SerializeField]
     private GameObject[] SelectQuickSlot;
     [SerializeField]
@@ -14,20 +17,26 @@ public class Player : MonoBehaviour
 
     private Item nearbyItem;
     private DayPassTrigger nearbyDayAdvanceTrigger;
-    //private Camera mainCamera;
+    private GameObject nearbyQuickSlot;
     private int currentSlot = 0;
+    //private Camera mainCamera;
+    public Camera mainCamera;
+
+
 
     //체력
     private int maxHP = 100;
     public int currentHP = 100;
+    private int quickSlotIndex = -1;
 
-    private static Player instance;
     public SteamVR_LaserPointer steamVR_LaserPointer;
     public SteamVR_Behaviour_Pose poseBehaviour;
     public SteamVR_Action_Boolean fireAction; // 버튼 입력을 감지할 SteamVR 액션
     public SteamVR_Input_Sources handType;
 
     public FireBullet FirebBullet;
+
+
 
     private void Awake()
     {
@@ -54,6 +63,7 @@ public class Player : MonoBehaviour
         }
 
         fireAction.AddOnStateDownListener(OnFireAction, handType);
+
     }
 
     private void OnDestroy()
@@ -72,6 +82,7 @@ public class Player : MonoBehaviour
         if (item != null)
         {
             nearbyItem = item;
+            nearbyQuickSlot = null;
             UIManager.Instance.UpdateItemInfoUI(item.itemName, item.value);
             UIManager.Instance.ShowItemInfo(true);
         }
@@ -80,6 +91,10 @@ public class Player : MonoBehaviour
             nearbyItem = null;
             UIManager.Instance.ShowItemInfo(false);
         }
+
+        quickSlotIndex = UIManager.Instance.GetSlotGameObjectIndex(e.target.gameObject);            
+
+        nearbyQuickSlot = e.target.gameObject;
     }
 
     private void OnPointerClick(object sender, PointerEventArgs e)
@@ -87,6 +102,10 @@ public class Player : MonoBehaviour
         if (nearbyItem != null)
         {
             PickupItem();
+        }
+        else if (quickSlotIndex != -1)
+        {
+            DropItem(quickSlotIndex);
         }
     }
 
@@ -100,85 +119,17 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        Debug.Log(quickSlotIndex);
         /*
         if (GameManager.Instance.isGameOver)
         {
             return;
         }*/
-        
-        ///CheckForItem();
-//CheckForDayAdvanceTrigger();
+        //CheckForDayAdvanceTrigger();
 
-        if (nearbyItem != null && Input.GetKeyDown(KeyCode.F)) { PickupItem(); }
         if (nearbyDayAdvanceTrigger != null && Input.GetKeyDown(KeyCode.F)) { DayPass(); }
-        //if (Input.GetKeyDown(KeyCode.G)) { DropItem(); }
 
-        //퀵슬롯
-        if (Input.GetKeyDown(KeyCode.Alpha1)) { SelectSlot(0); }
-        if (Input.GetKeyDown(KeyCode.Alpha2)) { SelectSlot(1); }
-        if (Input.GetKeyDown(KeyCode.Alpha3)) { SelectSlot(2); }
-        if (Input.GetKeyDown(KeyCode.Alpha4)) { SelectSlot(3); }
     }
-
-    void SelectSlot(int index)
-    {
-        if (currentSlot != -1)
-        {
-            SelectQuickSlot[currentSlot].SetActive(false);
-        }
-        currentSlot = index;
-        SelectQuickSlot[currentSlot].SetActive(true);
-    }
-
-    //레이캐스트로 아이템 탐색 확인
-   
-    /*void CheckForItem()
-    {
-        Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-
-        Debug.DrawRay(ray.origin, ray.direction * pickupRange, Color.red); // 디버그용 레이캐스트 확인
-
-        if (Physics.Raycast(ray, out hit, pickupRange, itemLayer))
-        {
-            Item item = hit.collider.GetComponent<Item>();
-            if (item != null)
-            {
-                nearbyItem = item;
-                UIManager.Instance.UpdateItemInfoUI(item.itemName, item.value);
-                UIManager.Instance.ShowItemInfo(true);
-                return;
-            }
-        }
-
-        nearbyItem = null;
-        UIManager.Instance.ShowItemInfo(false);
-    }
-
-
-    //레이캐스트로 날짜 넘기는 트리거 체크
-    void CheckForDayAdvanceTrigger()
-    {
-        Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit, pickupRange))
-        {
-            DayPassTrigger dayAdvanceTrigger = hit.collider.GetComponent<DayPassTrigger>();
-            if (dayAdvanceTrigger != null)
-            {
-                nearbyDayAdvanceTrigger = dayAdvanceTrigger;
-                UIManager.Instance.ShowInteractionMessage("F 날짜 넘김", true);
-                return;
-            }
-        }
-
-        nearbyDayAdvanceTrigger = null;
-        if (MoveMap.isPlayerInTrigger == false)
-        {
-            UIManager.Instance.ShowInteractionMessage("", false);
-        }
-    }*/
 
     void PickupItem()
     {
@@ -200,19 +151,19 @@ public class Player : MonoBehaviour
             }
         }
     }
-    /*
-    void DropItem()
+
+    void DropItem(int slotIndex)
     {
-        Item itemToDrop = UIManager.Instance.GetSelectedQuickSlotItem(currentSlot);
+        Item itemToDrop = UIManager.Instance.GetSelectedQuickSlotItem(slotIndex);
         if (itemToDrop != null)
         {
             Vector3 dropPosition = mainCamera.transform.position + mainCamera.transform.forward * 2.0f;
             itemToDrop.Drop(dropPosition);
             InventoryManager.Instance.RemoveItem(itemToDrop); // 인벤토리에서 아이템 제거 및 씬으로 반환
-            UIManager.Instance.RemoveItemFromQuickSlot(currentSlot);
-            Debug.Log($"{currentSlot + 1}번 슬롯 아이템 드랍");
+            UIManager.Instance.RemoveItemFromQuickSlot(slotIndex);
+            Debug.Log($"{slotIndex + 1}번 슬롯 아이템 드랍");
         }
-    }*/
+    }
 
     // 하루 넘기는 버튼에서 F키 눌렀을 때 처리
     void DayPass()

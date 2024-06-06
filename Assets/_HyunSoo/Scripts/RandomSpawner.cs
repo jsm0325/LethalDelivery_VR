@@ -17,23 +17,25 @@ public class RandomSpawner : MonoBehaviour
 
         if (currentSceneName == "OutMap")
         {
-            PlaceRandomPrefabs();
+            PlaceRandomPrefabsObj();
         }
         else if (currentSceneName == "SciFi_Warehouse")
         {
-            InvokeRepeating("PlaceRandomPrefabs", 0f, spawnInterval);
+            InvokeRepeating("PlaceRandomPrefabsMobs", 0f, spawnInterval);
         }
     }
-
-    void PlaceRandomPrefabs()
+    void PlaceRandomPrefabsObj()
     {
-        /*foreach (Transform spawnPoint in spawnPoints)
+        foreach (Transform spawnPoint in spawnPoints)
         {
             int randomIndex = Random.Range(0, Mobs.Length);
             GameObject selectedPrefab = Mobs[randomIndex];
-            
+
             Instantiate(selectedPrefab, spawnPoint.position, spawnPoint.rotation);
-        }*/
+        }
+    }
+    void PlaceRandomPrefabsMobs()
+    {
         int randindex = Random.Range(0, spawnPoints.Length);
         int randomIndex = Random.Range(0, Mobs.Length);
         Instantiate(Mobs[randomIndex], spawnPoints[randindex]);

@@ -59,7 +59,7 @@ public class InventoryManager : MonoBehaviour
         saveFilePath = Path.Combine(Application.persistentDataPath, $"{sceneName}_itemData.json");
     }
 
-    private void InitializeAllItemData()
+    public void InitializeAllItemData()
     {
         string[] files = Directory.GetFiles(Application.persistentDataPath, "*_itemData.json");
         foreach (var file in files)

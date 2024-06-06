@@ -6,7 +6,7 @@ using Valve.VR.Extras;
 
 public class Player : MonoBehaviour
 {
-    public static Player instance;
+
 
     [SerializeField]
     private GameObject[] SelectQuickSlot;
@@ -37,6 +37,15 @@ public class Player : MonoBehaviour
     public FireBullet FirebBullet;
 
 
+
+
+    public AudioClip pickupSound;
+    public AudioClip dropSound;
+    public AudioClip quickSlotfullSound;
+    int restart = -1;
+    //public AudioClip fireSound;
+
+    public static Player instance;
 
     private void Awake()
     {
@@ -98,7 +107,28 @@ public class Player : MonoBehaviour
         nearbyQuickSlot = e.target.gameObject;
 
         /* 날짜 넘김 */
-        
+        DayPassTrigger dayPassTrigger = e.target.GetComponent<DayPassTrigger>();
+        if (dayPassTrigger != null)
+        {
+            nearbyDayAdvanceTrigger = dayPassTrigger;
+            UIManager.Instance.ShowInteractionMessage("날짜 넘김", true);
+        }
+        else
+        {
+            nearbyDayAdvanceTrigger = null;
+            UIManager.Instance.ShowInteractionMessage("", false);
+        }
+
+        /* 다시하기 */
+        if (e.target.gameObject.CompareTag("Restart") == true)
+        {
+            restart = 1;
+        }
+        else
+        {
+            restart = -1;
+        }
+
     }
 
     private void OnPointerClick(object sender, PointerEventArgs e)
@@ -110,6 +140,14 @@ public class Player : MonoBehaviour
         else if (quickSlotIndex != -1)
         {
             DropItem(quickSlotIndex);
+        }
+        else if (nearbyDayAdvanceTrigger != null)
+        {
+            DayPass();
+        }
+        else if (restart == 1)
+        {
+            GameManager.Instance.ReStartNewGame();
         }
     }
 
@@ -123,15 +161,17 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(quickSlotIndex);
-        /*
+        Debug.Log(restart);
         if (GameManager.Instance.isGameOver)
         {
             return;
-        }*/
+        }
         //CheckForDayAdvanceTrigger();
 
-        if (nearbyDayAdvanceTrigger != null && Input.GetKeyDown(KeyCode.F)) { DayPass(); }
+       if (currentHP <= 0)
+        {
+            GameManager.Instance.GameOver();
+        }
 
     }
 
@@ -141,13 +181,15 @@ public class Player : MonoBehaviour
         {
             if (UIManager.Instance.IsQuickSlotFull())
             {
-                Debug.Log("퀵슬롯이 모두 꽉 찼습니다!");
+                GameManager.Instance.PlaySound(quickSlotfullSound);
+                Debug.Log("퀵슬롯 꽉 참");
                 return;
             }
 
             int slotIndex = UIManager.Instance.AddItemToQuickSlot(nearbyItem);
             if (slotIndex != -1)
             {
+                GameManager.Instance.PlaySound(pickupSound);
                 InventoryManager.Instance.AddItem(nearbyItem); // 인벤토리에 아이템 추가
                 nearbyItem.Pickup(); // 아이템 오브젝트 비활성화
                 nearbyItem = null;
@@ -161,6 +203,7 @@ public class Player : MonoBehaviour
         Item itemToDrop = UIManager.Instance.GetSelectedQuickSlotItem(slotIndex);
         if (itemToDrop != null)
         {
+            GameManager.Instance.PlaySound(dropSound);
             Vector3 dropPosition = mainCamera.transform.position + mainCamera.transform.forward * 2.0f;
             itemToDrop.Drop(dropPosition);
             InventoryManager.Instance.RemoveItem(itemToDrop); // 인벤토리에서 아이템 제거 및 씬으로 반환

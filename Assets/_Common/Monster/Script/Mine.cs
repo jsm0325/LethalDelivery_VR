@@ -35,13 +35,16 @@ public class Mine : MonoBehaviour
             // 'Player' 태그를 가진 객체에 대해 즉사 처리
             if (nearbyObject.CompareTag("Player"))
             {
-                // 여기서는 간단히 로그를 찍지만, 실제 게임에서는 플레이어의 사망 처리 로직을 구현
-                Debug.Log("Player killed by mine");
+                Invoke("HPDown", 1);
+                
             }
         }
+    }
 
-        // 지뢰 객체 파괴
-        Destroy(gameObject);
+    void HPDown()
+    {
+        Player.instance.currentHP -= 100;
+        Destroy(gameObject); //지뢰 파괴
     }
 
     void OnDrawGizmosSelected()

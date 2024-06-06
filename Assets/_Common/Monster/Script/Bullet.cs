@@ -13,10 +13,10 @@ public class Bullet : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (!other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player"))
         {
             Destroy(gameObject);  // 총알이 목표물에 닿으면 파괴
-            Debug.Log("Damage 5");
+            Debug.Log("Damage 5"); // 추후에 플레이어 데미지 코드 추가
         }
     }
 }

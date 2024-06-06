@@ -23,7 +23,7 @@ public class Mine : MonoBehaviour
         hasExploded = true;
 
         // 气惯 荤款靛 犁积
-        //AudioSource.PlayClipAtPoint(explosionSound, transform.position);
+        AudioSource.PlayClipAtPoint(explosionSound, transform.position);
 
         // 气惯 捞棋飘 积己
         Instantiate(explosionEffect, transform.position, Quaternion.identity);

@@ -78,6 +78,7 @@ public class Player : MonoBehaviour
 
     private void OnPointerIn(object sender, PointerEventArgs e)
     {
+        /* 아이템 픽업 */
         Item item = e.target.GetComponent<Item>();
         if (item != null)
         {
@@ -92,9 +93,12 @@ public class Player : MonoBehaviour
             UIManager.Instance.ShowItemInfo(false);
         }
 
+        /* 아이템 드랍 */
         quickSlotIndex = UIManager.Instance.GetSlotGameObjectIndex(e.target.gameObject);            
-
         nearbyQuickSlot = e.target.gameObject;
+
+        /* 날짜 넘김 */
+        
     }
 
     private void OnPointerClick(object sender, PointerEventArgs e)

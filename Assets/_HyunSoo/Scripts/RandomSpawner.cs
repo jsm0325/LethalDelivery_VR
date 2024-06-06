@@ -11,6 +11,10 @@ public class RandomSpawner : MonoBehaviour
 
     public float spawnInterval = 0.5f;
 
+    public int maxMobs = 9;
+    int giants = 2;
+    int noeys = 4;
+    int collectBugs = 3;
     void Start()
     {
         string currentSceneName = SceneManager.GetActiveScene().name;
@@ -22,6 +26,11 @@ public class RandomSpawner : MonoBehaviour
         else if (currentSceneName == "SciFi_Warehouse")
         {
             InvokeRepeating("PlaceRandomPrefabsMobs", 0f, spawnInterval);
+        }
+        else if (currentSceneName == "InsideMap")
+        {
+            print("inside");
+            InvokeRepeating("PlaceRandomButMaxEach", 0f, spawnInterval);
         }
     }
     void PlaceRandomPrefabsObj()
@@ -39,5 +48,32 @@ public class RandomSpawner : MonoBehaviour
         int randindex = Random.Range(0, spawnPoints.Length);
         int randomIndex = Random.Range(0, Mobs.Length);
         Instantiate(Mobs[randomIndex], spawnPoints[randindex]);
+    }
+    void PlaceRandomButMaxEach()
+    {
+        if (maxMobs == 0)
+            return;
+
+        int randindex = Random.Range(0, spawnPoints.Length);
+        int randomIndex = Random.Range(0, Mobs.Length);
+        
+        if(randindex == 0 && collectBugs != 0)
+        {
+            Instantiate(Mobs[randomIndex], spawnPoints[randindex]);
+            collectBugs--;
+            maxMobs--;
+        }
+        if (randindex == 1 && noeys != 0)
+        {
+            Instantiate(Mobs[randomIndex], spawnPoints[randindex]);
+            noeys--;
+            maxMobs--;
+        }
+        if (randindex == 2 && giants != 0)
+        {
+            Instantiate(Mobs[randomIndex], spawnPoints[randindex]);
+            giants--;
+            maxMobs--;
+        }
     }
 }

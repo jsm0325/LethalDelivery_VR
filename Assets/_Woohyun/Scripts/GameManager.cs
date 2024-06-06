@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class GameManager : MonoBehaviour
 
     private int currentValue = 0; // 현재 금액
     public bool isGameOver = false; // 게임 오버 상태
+    private AudioSource audioSource;
 
     public static GameManager Instance;
 
@@ -39,6 +41,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         StartNewGame();
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -90,12 +93,25 @@ public class GameManager : MonoBehaviour
         return currentDay;
     }
 
-    private void GameOver()
+    public void GameOver()
     {
         isGameOver = true;
-        UIManager.Instance.ShowGameOverUI(true);
+        SceneManager.LoadScene("Gameover_Lethal");
+        SceneManager.sceneLoaded += OnSceneLoaded;
         Debug.Log("게임 오버");
     }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+        {
+            player.transform.position = new Vector3(0, 0, 0);
+        }
+
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
 
     public void StartNewGame()
     {
@@ -111,5 +127,32 @@ public class GameManager : MonoBehaviour
 
         InventoryManager.Instance.ClearItemData(); // JSON 데이터 초기화
         InventoryManager.Instance.RestoreItems();
+    }
+
+    public void ReStartNewGame()
+    {
+        currentDay = 1;
+        currentGoalAmount = startGoalAmount;
+        currentValue = 0;
+        elapsedTime = 0;
+        isGameOver = false;
+
+        UIManager.Instance.UpdateGoalUI(currentGoalAmount);
+        UIManager.Instance.UpdateMoneyUI(currentValue);
+        UIManager.Instance.ShowGameOverUI(false);
+
+        InventoryManager.Instance.ClearItemData(); // JSON 데이터 초기화
+        InventoryManager.Instance.InitializeAllItemData(); 
+        InventoryManager.Instance.RestoreItems();
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        SceneManager.LoadScene("OutMap");
+        player.transform.position = new Vector3(346, 0.14f, 472.085f);
+    }
+    public void PlaySound(AudioClip clip)
+    {
+        if (audioSource != null && clip != null)
+        {
+            audioSource.PlayOneShot(clip);
+        }
     }
 }

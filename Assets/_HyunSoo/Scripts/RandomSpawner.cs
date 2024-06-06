@@ -19,7 +19,7 @@ public class RandomSpawner : MonoBehaviour
     {
         string currentSceneName = SceneManager.GetActiveScene().name;
 
-        if (currentSceneName == "OutMap")
+        if (currentSceneName == "OutMap" || currentSceneName == "Dungeon")
         {
             PlaceRandomPrefabsObj();
         }
@@ -27,11 +27,15 @@ public class RandomSpawner : MonoBehaviour
         {
             InvokeRepeating("PlaceRandomPrefabsMobs", 0f, spawnInterval);
         }
+<<<<<<< HEAD
         else if (currentSceneName == "InsideMap")
         {
             print("inside");
             InvokeRepeating("PlaceRandomButMaxEach", 0f, spawnInterval);
         }
+=======
+ 
+>>>>>>> 51092c3d30ee00003db66c72e61bcb2c814ef100
     }
     void PlaceRandomPrefabsObj()
     {

@@ -15,11 +15,12 @@ TagManager:
   - PlayerHead
   - ClickBlock
   - QuickSlot
+  - Restart
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
   - Item

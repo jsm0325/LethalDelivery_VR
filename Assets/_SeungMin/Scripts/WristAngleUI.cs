@@ -13,6 +13,20 @@ public class WristAngleUI : MonoBehaviour
     public float smoothSpeed = 5f; // UI가 손목을 따라가는 속도
     public Transform wristTransform; // 손목의 Transform
     public Transform cameraTransform; // 카메라의 Transform
+    public static WristAngleUI instance;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     private void Start()
     {

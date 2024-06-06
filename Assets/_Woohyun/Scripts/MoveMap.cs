@@ -8,16 +8,17 @@ public class MoveMap : MonoBehaviour
 {
     public static bool isPlayerInTrigger = false;
     private float keyPressDuration = 0.0f;
-    private float requiredPressTime = 1.0f;
+    private float requiredPressTime = 3.0f;
     public string sceneMap = "";
     public Vector3 newPlayerPosition;
 
     public SteamVR_LaserPointer steamVR_LaserPointer;
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            UIManager.Instance.ShowInteractionMessage("F 1초, 들어가기", true);
+            string text = (int)(requiredPressTime - keyPressDuration + 1) + "초 후 입장합니다";
+            UIManager.Instance.ShowInteractionMessage(text, true);
             isPlayerInTrigger = true;
         }
     }
@@ -30,11 +31,11 @@ public class MoveMap : MonoBehaviour
             isPlayerInTrigger = false;
             keyPressDuration = 0.0f; // Reset the key press duration when the player exits the trigger
         }
-    }
+    } 
 
     private void Update()
     {
-        if (isPlayerInTrigger && Input.GetKey(KeyCode.F))
+        if (isPlayerInTrigger)
         {
             keyPressDuration += Time.deltaTime;
             if (keyPressDuration >= requiredPressTime)

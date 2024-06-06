@@ -64,6 +64,10 @@
       "requirement": "mandatory"
     },
     {
+      "name": "/actions/default/in/waist",
+      "type": "pose"
+    },
+    {
       "name": "/actions/default/out/Haptic",
       "type": "vibration"
     },

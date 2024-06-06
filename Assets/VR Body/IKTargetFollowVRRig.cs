@@ -48,28 +48,36 @@ public class IKTargetFollowVRRig : MonoBehaviour
     }
     void LateUpdate()
     {
+        // Head position and rotation
         transform.position = head.ikTarget.position + headBodyPositionOffset;
         float yaw = head.vrTarget.eulerAngles.y;
-        transform.rotation = Quaternion.Lerp(transform.rotation,Quaternion.Euler(transform.eulerAngles.x, yaw, transform.eulerAngles.z),turnSmoothness);
+        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(transform.eulerAngles.x, yaw, transform.eulerAngles.z), turnSmoothness);
 
+        // Mapping the head
         head.Map();
+
+        // Mapping the waist
+        Waist.Map();
+
+        // Mapping the hands
         leftHand.Map();
         rightHand.Map();
-        if(onFullTracking == true)
+
+        // Full tracking for feet
+        if (onFullTracking)
         {
-            if (leftIKFootSolver.enabled == true)
+            if (leftIKFootSolver.enabled)
             {
                 leftIKFootSolver.enabled = false;
                 rightIKFootSolver.enabled = false;
             }
-            //Waist.Map();
+
             leftFoot.Map();
             rightFoot.Map();
         }
         else
         {
-
-            if (leftIKFootSolver.enabled == false)
+            if (!leftIKFootSolver.enabled)
             {
                 leftIKFootSolver.enabled = true;
                 rightIKFootSolver.enabled = true;

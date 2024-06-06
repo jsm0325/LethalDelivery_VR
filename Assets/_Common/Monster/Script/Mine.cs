@@ -10,6 +10,15 @@ public class Mine : MonoBehaviour
 
     private bool hasExploded = false;   // 폭발 여부 확인
 
+    public AudioSource warningSound; // 경고음 오디오 소스 추가
+    public float warningInterval = 20f; // 경고음 재생 간격
+    public float intervalVariation = 5f; // 경고음 재생 간격의 무작위 변동 범위
+
+    private void Start()
+    {
+        // 경고음 재생을 위한 코루틴 시작
+        StartCoroutine(PlayWarningSound());
+    }
     void OnTriggerEnter(Collider other)
     {
         if (!hasExploded && other.CompareTag("Player")) // 'Player' 태그를 가진 객체와 접촉
@@ -52,5 +61,17 @@ public class Mine : MonoBehaviour
         // 에디터에서 폭발 범위를 시각화
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, explosionRadius);
+    }
+    IEnumerator PlayWarningSound()
+    {
+        while (true)
+        {
+            if (warningSound != null)
+            {
+                warningSound.Play();
+            }
+            float interval = warningInterval + Random.Range(-intervalVariation, intervalVariation);
+            yield return new WaitForSeconds(interval);
+        }
     }
 }

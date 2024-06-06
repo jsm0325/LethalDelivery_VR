@@ -829,8 +829,12 @@ MonoBehaviour:
   state: 0
   killDis: 2
   anim: {fileID: 0}
-  sound: {fileID: 0}
+  detectionRange: 15
   isGivenItem: 0
+  sound: {fileID: 0}
+  bugClip:
+  - {fileID: 8300000, guid: e60a7ecaf197ea347bef6ddeb1e17f11, type: 3}
+  - {fileID: 8300000, guid: 73d3ad94758cada45963dab90685e403, type: 3}
 --- !u!136 &6919831134686211097
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -854,12 +858,12 @@ AudioSource:
   m_GameObject: {fileID: 4071832829212348688}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 587aedb20bbaf494eb496195f38a8ab6, type: 2}
+  m_audioClip: {fileID: 8300000, guid: e60a7ecaf197ea347bef6ddeb1e17f11, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0

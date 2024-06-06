@@ -1104,9 +1104,37 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2568474376226051126, guid: 060d22d93dcaa244d82f8e5c5f5da802, type: 3}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2568474376226051126, guid: 060d22d93dcaa244d82f8e5c5f5da802, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: e60a7ecaf197ea347bef6ddeb1e17f11, type: 3}
+    - target: {fileID: 2568474376226051126, guid: 060d22d93dcaa244d82f8e5c5f5da802, type: 3}
       propertyPath: OutputAudioMixerGroup
       value: 
       objectReference: {fileID: 24300002, guid: 587aedb20bbaf494eb496195f38a8ab6, type: 2}
+    - target: {fileID: 3011715074324985887, guid: 060d22d93dcaa244d82f8e5c5f5da802, type: 3}
+      propertyPath: detectionRange
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 3011715074324985887, guid: 060d22d93dcaa244d82f8e5c5f5da802, type: 3}
+      propertyPath: bugClip.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3011715074324985887, guid: 060d22d93dcaa244d82f8e5c5f5da802, type: 3}
+      propertyPath: bugClip.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: e60a7ecaf197ea347bef6ddeb1e17f11, type: 3}
+    - target: {fileID: 3011715074324985887, guid: 060d22d93dcaa244d82f8e5c5f5da802, type: 3}
+      propertyPath: bugClip.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: 73d3ad94758cada45963dab90685e403, type: 3}
+    - target: {fileID: 3011715074324985887, guid: 060d22d93dcaa244d82f8e5c5f5da802, type: 3}
+      propertyPath: bugClip.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: 73d3ad94758cada45963dab90685e403, type: 3}
     - target: {fileID: 4071832829212348688, guid: 060d22d93dcaa244d82f8e5c5f5da802, type: 3}
       propertyPath: m_Name
       value: bichuk_insect_prefab

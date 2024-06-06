@@ -8,6 +8,9 @@ public class CollectBug : Enemy
     public bool isGivenItem = false; // change this due to motions and movements
     private Transform itembox;
     private bool isDamaging = false;
+    public AudioSource sound;
+
+    public AudioClip[] bugClip;
     public override void Start()
     {
         base.Start();
@@ -15,11 +18,18 @@ public class CollectBug : Enemy
         //itembox = GameObject.Find("itembox").GetComponent<Transform>();
         hp = 1.0f;
         score = 1;
+        sound = GetComponent<AudioSource>();
+        sound.loop = true;
+        sound.Play();
     }
 
     public override void Update()
     {
         base.Update();
+        if (state == State.wander)
+        {
+            ChangeSound(bugClip[0], sound);
+        }
         if (state == State.encounter)
         {
             //anim encounter, check isGivenItem
@@ -30,6 +40,7 @@ public class CollectBug : Enemy
         }
         if (state == State.kill)
         {
+            ChangeSound(bugClip[1], sound);
             agent.SetDestination(player.position);
             if (Vector3.Distance(transform.position, player.position) <= killDis)
             {
@@ -43,6 +54,25 @@ public class CollectBug : Enemy
             state = State.pickup;
         if (state == State.pickup)
             agent.SetDestination(itembox.position);
+
+        float distance = Vector3.Distance(transform.position, player.position);
+        if (distance <= detectionRange)
+        {
+            sound.volume = 1.0f - (distance / detectionRange);
+        }
+        else
+        {
+            sound.volume = 0;
+        }
+    }
+    public void ChangeSound(AudioClip clip, AudioSource source)
+    {
+        if (source.clip != clip)
+        {
+            source.clip = clip;
+            source.loop = !source.loop;
+            source.Play();
+        }
     }
     IEnumerator Damage(float delay)
     {

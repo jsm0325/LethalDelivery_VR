@@ -19,12 +19,22 @@ public class Turret : MonoBehaviour
     public ParticleSystem upperMuzzleFlash; // 상단 총구 화염
     public ParticleSystem lowerMuzzleFlash; // 하단 총구 화염
 
+    public AudioSource warningSound; // 경고음 오디오 소스 추가
+    public float warningInterval = 20f; // 경고음 재생 간격
+    public float intervalVariation = 5f; // 경고음 재생 간격의 무작위 변동 범위
 
     public float detectionRange = 20f; // 감지 범위
     public LayerMask detectionLayer; // 감지할 레이어
     public float lostTargetTimeout = 3f; // 타겟을 잃은 후 회전 시작 시간
 
     private float lostTargetTimer = 0f;
+
+    private void Start()
+    {
+        // 경고음 재생을 위한 코루틴 시작
+        StartCoroutine(PlayWarningSound());
+    }
+
     void Update()
     {
 
@@ -51,9 +61,13 @@ public class Turret : MonoBehaviour
         else
         {
 
-            // 기본 회전 상태로 돌아가기
-            turretHead.Rotate(Vector3.up * turnSpeed * Time.deltaTime);
-            
+            lostTargetTimer += Time.deltaTime;
+
+            if (lostTargetTimer >= lostTargetTimeout)
+            {
+                // 기본 회전 상태로 돌아가기
+                turretHead.Rotate(Vector3.up * turnSpeed * Time.deltaTime);
+            }
         }
     }
 
@@ -106,5 +120,17 @@ public class Turret : MonoBehaviour
             shootSound.Play();
         }
         isUpperBarrel = !isUpperBarrel;
+    }
+    IEnumerator PlayWarningSound()
+    {
+        while (true)
+        {
+            if (warningSound != null)
+            {
+                warningSound.Play();
+            }
+            float interval = warningInterval + Random.Range(-intervalVariation, intervalVariation);
+            yield return new WaitForSeconds(interval);
+        }
     }
 }

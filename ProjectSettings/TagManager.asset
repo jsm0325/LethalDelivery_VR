@@ -16,6 +16,8 @@ TagManager:
   - ClickBlock
   - QuickSlot
   - Restart
+  - btn_mode1
+  - btn_mode2
   layers:
   - Default
   - TransparentFX

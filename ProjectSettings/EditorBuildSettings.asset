@@ -20,6 +20,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/LethalDelivery/Gameover_Lethal.unity
     guid: 3a09f7c3d8796f84498cf72973ac7ef3
+  - enabled: 1
+    path: Assets/Scenes/LethalDelivery/InsideMap.unity
+    guid: 9dc5ad07bd5e186419a4eb99a508b08c
   m_configObjects:
     Unity.XR.OpenVR.Settings: {fileID: 11400000, guid: 839d2df36d50ada40a7a19f915eeceae, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 4028f199cd7f38b4a8dadda6375af882, type: 2}

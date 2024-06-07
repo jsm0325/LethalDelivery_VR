@@ -119,6 +119,17 @@ public class UIManager : MonoBehaviour
         interactionText.gameObject.SetActive(show);
     }
 
+    // Äü½½·Ô ÃÊ±âÈ­ ±â´É
+    public void InitializeQuickSlots()
+    {
+        for (int i = 0; i < quickSlotItems.Length; i++)
+        {
+            quickSlotItems[i] = null;
+            slotGameObjects[i].GetComponent<Image>().sprite = null;
+            slotGameObjects[i].GetComponent<Image>().enabled = false;
+        }
+    }
+
     // Äü½½·Ô ±â´É
     public bool IsQuickSlotFull()
     {

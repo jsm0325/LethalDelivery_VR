@@ -2,18 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-/*
- *  ThrowItemZone은 회사 건물에 배치하면 될듯
- */
-
 public class ThrowItemZone : MonoBehaviour
 {
+
+    public AudioClip sellSound;
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Item"))
         {
             Item itemComponent = other.GetComponent<Item>();
+            GameManager.Instance.PlaySound(sellSound);
             Debug.Log("트리거 감지");
+            
             if (itemComponent != null)
             {
                 int increaseValue = itemComponent.value;

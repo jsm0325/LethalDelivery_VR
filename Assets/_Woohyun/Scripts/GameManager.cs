@@ -140,6 +140,7 @@ public class GameManager : MonoBehaviour
         UIManager.Instance.UpdateGoalUI(currentGoalAmount);
         UIManager.Instance.UpdateMoneyUI(currentValue);
         UIManager.Instance.ShowGameOverUI(false);
+        UIManager.Instance.InitializeQuickSlots();
 
         InventoryManager.Instance.ClearItemData(); // JSON 데이터 초기화
         InventoryManager.Instance.InitializeAllItemData(); 
@@ -147,6 +148,7 @@ public class GameManager : MonoBehaviour
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         SceneManager.LoadScene("OutMap");
         player.transform.position = new Vector3(346, 0.14f, 472.085f);
+        Player.instance.currentHP = 100;
     }
     public void PlaySound(AudioClip clip)
     {

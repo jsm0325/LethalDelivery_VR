@@ -4,76 +4,39 @@ using UnityEngine.UI;
 using Valve.VR;
 using Valve.VR.Extras;
 
-public class Player : MonoBehaviour
+public class SelectPlayer : MonoBehaviour
 {
 
-
-    [SerializeField]
-    private GameObject[] SelectQuickSlot;
     [SerializeField]
     private float pickupRange = 2.0f;
     [SerializeField]
     private LayerMask itemLayer;
 
-    private Item nearbyItem;
-    private DayPassTrigger nearbyDayAdvanceTrigger;
-    private GameObject nearbyQuickSlot;
-    private int currentSlot = 0;
-    //private Camera mainCamera;
     public Camera mainCamera;
 
-
-
-    //체력
-    private int maxHP = 100;
-    public int currentHP = 100;
-    private int quickSlotIndex = -1;
 
     public SteamVR_LaserPointer steamVR_LaserPointer;
     public SteamVR_Behaviour_Pose poseBehaviour;
     public SteamVR_Action_Boolean fireAction; // 버튼 입력을 감지할 SteamVR 액션
     public SteamVR_Input_Sources handType;
 
-    public FireBullet FirebBullet;
-
 
     [Header("사운드 클립")]
-    public AudioClip pickupSound;
-    public AudioClip dropSound;
-    public AudioClip quickSlotfullSound;
-    public AudioClip dayPassSound;
+    public AudioClip hoverSound;
+    public AudioClip clickSound;
+
 
     private bool restart = false;
     //public AudioClip fireSound;
 
-    public static Player instance;
-
-    private void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
     void Start()
     {
-        //mainCamera = Camera.main;
-        UIManager.Instance.ShowItemInfo(false);
-        InventoryManager.Instance.RestoreItems();
         // LaserPointer 이벤트 구독
         if (steamVR_LaserPointer != null)
         {
             steamVR_LaserPointer.PointerIn += OnPointerIn;
             steamVR_LaserPointer.PointerClick += OnPointerClick;
         }
-
-        fireAction.AddOnStateDownListener(OnFireAction, handType);
-
     }
 
     private void OnDestroy()
@@ -88,38 +51,6 @@ public class Player : MonoBehaviour
 
     private void OnPointerIn(object sender, PointerEventArgs e)
     {
-        /* 아이템 픽업 */
-        Item item = e.target.GetComponent<Item>();
-        if (item != null)
-        {
-            nearbyItem = item;
-            nearbyQuickSlot = null;
-            UIManager.Instance.UpdateItemInfoUI(item.itemName, item.value);
-            UIManager.Instance.ShowItemInfo(true);
-        }
-        else
-        {
-            nearbyItem = null;
-            UIManager.Instance.ShowItemInfo(false);
-        }
-
-        /* 아이템 드랍 */
-        quickSlotIndex = UIManager.Instance.GetSlotGameObjectIndex(e.target.gameObject);            
-        nearbyQuickSlot = e.target.gameObject;
-
-        /* 날짜 넘김 */
-        DayPassTrigger dayPassTrigger = e.target.GetComponent<DayPassTrigger>();
-        if (dayPassTrigger != null)
-        {
-            nearbyDayAdvanceTrigger = dayPassTrigger;
-            UIManager.Instance.ShowInteractionMessage("날짜 넘김", true);
-        }
-        else
-        {
-            nearbyDayAdvanceTrigger = null;
-            UIManager.Instance.ShowInteractionMessage("", false);
-        }
-
         /* 다시하기 */
         if (e.target.gameObject.CompareTag("Restart") == true)
         {

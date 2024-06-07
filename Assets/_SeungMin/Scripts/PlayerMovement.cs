@@ -18,13 +18,17 @@ public class PlayerMovement : MonoBehaviour
     private Transform m_CameraRig = null; // 플레이어의 리그(transform)
     private Transform m_head; // 플레이어의 머리(transform)
     private Vector3 lastHeadPosition; // 초기 카메라 리그 위치
+    private Vector3 lastPosition; // 이전 프레임의 플레이어 위치
+    private AudioSource audioSource; // AudioSource 컴포넌트
 
     private void Start()
     {
         m_CharacterController = GetComponent<CharacterController>();
         m_CameraRig = SteamVR_Render.Top().origin;
         m_head = SteamVR_Render.Top().head;
-        m_CharacterController.transform.position = m_head.position;        
+        m_CharacterController.transform.position = m_head.position;
+        audioSource = GetComponent<AudioSource>();
+        lastPosition = transform.position; // 초기 위치 설정
     }
 
     private void Update()
@@ -32,6 +36,23 @@ public class PlayerMovement : MonoBehaviour
         HandleHeight();
         CalculateMovement();
         UpdateColliderPosition();
+        // 플레이어의 현재 위치를 확인하고 이동 여부를 판단
+        if (transform.position != lastPosition)
+        {
+            if (!audioSource.isPlaying)
+            {
+                audioSource.Play(); // 이동 중일 때 사운드 재생
+            }
+        }
+        else
+        {
+            if (audioSource.isPlaying)
+            {
+                audioSource.Pause(); // 멈출 때 사운드 일시 정지
+            }
+        }
+
+        lastPosition = transform.position; // 현재 위치를 이전 위치로 업데이트
     }
 
     void UpdateColliderPosition()

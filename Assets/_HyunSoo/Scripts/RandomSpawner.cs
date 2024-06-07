@@ -15,6 +15,7 @@ public class RandomSpawner : MonoBehaviour
     int giants = 2;
     int noeys = 4;
     int collectBugs = 3;
+    int i = 0;
     void Start()
     {
         string currentSceneName = SceneManager.GetActiveScene().name;
@@ -27,15 +28,11 @@ public class RandomSpawner : MonoBehaviour
         {
             InvokeRepeating("PlaceRandomPrefabsMobs", 0f, spawnInterval);
         }
-<<<<<<< HEAD
         else if (currentSceneName == "InsideMap")
         {
-            print("inside");
+            Shuffle(spawnPoints);
             InvokeRepeating("PlaceRandomButMaxEach", 0f, spawnInterval);
         }
-=======
- 
->>>>>>> 51092c3d30ee00003db66c72e61bcb2c814ef100
     }
     void PlaceRandomPrefabsObj()
     {
@@ -55,29 +52,39 @@ public class RandomSpawner : MonoBehaviour
     }
     void PlaceRandomButMaxEach()
     {
-        if (maxMobs == 0)
-            return;
-
-        int randindex = Random.Range(0, spawnPoints.Length);
-        int randomIndex = Random.Range(0, Mobs.Length);
-        
-        if(randindex == 0 && collectBugs != 0)
+        int randindex = Random.Range(0, Mobs.Length);
+        if(randindex == 0 && collectBugs > 0)
         {
-            Instantiate(Mobs[randomIndex], spawnPoints[randindex]);
+            Instantiate(Mobs[0], spawnPoints[i]);
             collectBugs--;
             maxMobs--;
+            i++;
         }
-        if (randindex == 1 && noeys != 0)
+        if (randindex == 1 && noeys > 0)
         {
-            Instantiate(Mobs[randomIndex], spawnPoints[randindex]);
+            Instantiate(Mobs[1], spawnPoints[i]);
             noeys--;
             maxMobs--;
+            i++;
         }
-        if (randindex == 2 && giants != 0)
+        if (randindex == 2 && giants > 0)
         {
-            Instantiate(Mobs[randomIndex], spawnPoints[randindex]);
+            Instantiate(Mobs[2], spawnPoints[i]);
             giants--;
             maxMobs--;
+            i++;
+        }
+        if (maxMobs == 0)
+            return;
+    }
+    void Shuffle<T>(T[] array)
+    {
+        for (int i = array.Length - 1; i > 0; i--)
+        {
+            int randomIndex = Random.Range(0, i + 1);
+            T temp = array[i];
+            array[i] = array[randomIndex];
+            array[randomIndex] = temp;
         }
     }
 }

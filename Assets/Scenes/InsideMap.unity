@@ -3323,7 +3323,7 @@ MonoBehaviour:
   - {fileID: 729177392}
   - {fileID: 1773510422}
   - {fileID: 1493051247}
-  spawnInterval: 0.5
+  spawnInterval: 1
   maxMobs: 9
 --- !u!4 &868340510
 Transform:

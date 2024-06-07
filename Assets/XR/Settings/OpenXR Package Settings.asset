@@ -1,5 +1,25 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-9041119664214385018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52e1656fb2c174a4e88e53bfaf04f6aa, type: 3}
+  m_Name: HTCViveTrackerProfile Standalone
+  m_EditorClassIdentifier: 
+  m_enabled: 0
+  nameUi: HTC Vive Tracker Profile
+  version: 0.0.1
+  featureIdInternal: com.massive.openxr.feature.input.htcvivetracker
+  openxrExtensionStrings: XR_HTCX_vive_tracker_interaction
+  company: MASSIVE
+  priority: 0
+  required: 0
 --- !u!114 &-8190301942551969079
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -80,7 +100,7 @@ MonoBehaviour:
   - {fileID: 5414183328161709448}
   - {fileID: 4059212503342652306}
   - {fileID: 1394955850343936239}
-  - {fileID: -7976018226861273512}
+  - {fileID: -9041119664214385018}
   - {fileID: 70418538766222028}
   - {fileID: 4013200581888503570}
   - {fileID: 2802846309424858918}

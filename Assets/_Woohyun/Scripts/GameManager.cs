@@ -8,8 +8,6 @@ public class GameManager : MonoBehaviour
 {
     [Header("첫 목표 금액")]
     public int startGoalAmount = 500; 
-    [Header("목표금액 증가치 (범위랜덤 할 수 있을듯)")]
-    public int goalIncrease = 500;
     [Header("목표당 일수")]
     public int daysPerGoal = 3;
     [Header("하루의 길이")]
@@ -22,6 +20,8 @@ public class GameManager : MonoBehaviour
     private int currentValue = 0; // 현재 금액
     public bool isGameOver = false; // 게임 오버 상태
     private AudioSource audioSource;
+    public AudioClip DayPassSound;
+    public AudioClip GameOverSound;
 
     public static GameManager Instance;
 
@@ -67,6 +67,7 @@ public class GameManager : MonoBehaviour
     {
         currentDay++;
         elapsedTime = 0; //날짜 넘어가면 경과시간 초기화
+        Player.instance.currentHP = 100;
 
         if ((currentDay - 1) % daysPerGoal == 0)
         {
@@ -76,8 +77,14 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                currentGoalAmount += goalIncrease;
+                int newgoal = (int)(currentGoalAmount * 1.3);
+                currentGoalAmount = newgoal;
                 UIManager.Instance.UpdateGoalUI(currentGoalAmount);
+                PlaySound(DayPassSound);
+                currentValue = 0;
+                UIManager.Instance.UpdateMoneyUI(currentValue);
+                UIManager.Instance.ShowDayPassMessage("축하합니다!\n새로운 목표가 할당되었습니다.", true);
+                
             }
         }
     }
@@ -96,6 +103,7 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         isGameOver = true;
+        PlaySound(GameOverSound);
         SceneManager.LoadScene("Gameover_Lethal");
         SceneManager.sceneLoaded += OnSceneLoaded;
         Debug.Log("게임 오버");

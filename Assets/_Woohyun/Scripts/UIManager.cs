@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
 public class UIManager : MonoBehaviour
 {
@@ -22,6 +23,13 @@ public class UIManager : MonoBehaviour
     private GameObject interactionBackground;
     [SerializeField]
     private TextMeshProUGUI interactionText;
+
+
+    [Header("데이패스 메세지")]
+    [SerializeField]
+    private GameObject DayPassBackground;
+    [SerializeField]
+    private TextMeshProUGUI DayPassText;
 
     [Header("아이템 정보 UI")]
     [SerializeField]
@@ -118,6 +126,28 @@ public class UIManager : MonoBehaviour
         interactionText.text = message;
         interactionText.gameObject.SetActive(show);
     }
+
+    public void ShowDayPassMessage(string message, bool show)
+    {
+        DayPassBackground.SetActive(show);
+        DayPassText.text = message;
+        DayPassText.gameObject.SetActive(show);
+
+        if (show)
+        {
+            StartCoroutine(HideDayPassMessageAfterDelay(5.0f));
+        }
+    }
+
+    private IEnumerator HideDayPassMessageAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        DayPassBackground.SetActive(false);
+        DayPassText.gameObject.SetActive(false);
+    }
+
+
 
     // 퀵슬롯 초기화 기능
     public void InitializeQuickSlots()

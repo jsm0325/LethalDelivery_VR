@@ -28,17 +28,16 @@ public class Turret : MonoBehaviour
     public float lostTargetTimeout = 3f; // 타겟을 잃은 후 회전 시작 시간
 
     private float lostTargetTimer = 0f;
-
+    private float detectionInterval = 0.2f;
     private void Start()
     {
         // 경고음 재생을 위한 코루틴 시작
         StartCoroutine(PlayWarningSound());
+        StartCoroutine(DetectPlayer());
     }
 
     void Update()
     {
-
-        DetectPlayer();
 
         if (target != Vector3.zero)
         {
@@ -71,29 +70,33 @@ public class Turret : MonoBehaviour
         }
     }
 
-    void DetectPlayer()
+    IEnumerator DetectPlayer()
     {
-        Transform barrel = isUpperBarrel ? upperBarrel : lowerBarrel;
-        Vector3 forward = barrel.TransformDirection(Vector3.forward);
-
-        RaycastHit hit;
-        Debug.DrawRay(barrel.position, forward * detectionRange, Color.red); // 디버그 레이
-
-        if (Physics.Raycast(barrel.position, forward, out hit, detectionRange, detectionLayer))
+        while (true)
         {
-            if (hit.collider.CompareTag("Player"))
+            Transform barrel = isUpperBarrel ? upperBarrel : lowerBarrel;
+            Vector3 forward = barrel.TransformDirection(Vector3.forward);
+
+            RaycastHit hit;
+            Debug.DrawRay(barrel.position, forward * detectionRange, Color.red); // 디버그 레이
+
+            if (Physics.Raycast(barrel.position, forward, out hit, detectionRange, detectionLayer))
             {
-                target = hit.transform.gameObject.GetComponent<CharacterController>().center;
-                Debug.Log("플레이어 감지");
+                if (hit.collider.CompareTag("Player"))
+                {
+                    target = hit.transform.position;
+                    Debug.Log("플레이어 감지");
+                }
             }
-        }
-        else
-        {
-            if (target != Vector3.zero)
+            else
             {
-                target = Vector3.zero;
-                Debug.Log("플레이어 감지 실패");
+                if (target != Vector3.zero)
+                {
+                    target = Vector3.zero;
+                    Debug.Log("플레이어 감지 실패");
+                }
             }
+            yield return new WaitForSeconds(detectionInterval);
         }
     }
 

@@ -4,16 +4,32 @@ using UnityEngine;
 
 public class TextureScaler : MonoBehaviour
 {
-    public Vector2 textureScale = new Vector2(1, 1);
+    public Vector2 baseScale = new Vector2(1, 1); // ±âº» Tiling °ª
+    private Renderer _renderer;
+    private Vector3 _previousScale;
+
+    void Start()
+    {
+        _renderer = GetComponent<Renderer>();
+        _previousScale = transform.localScale;
+        UpdateTextureScale();
+    }
 
     void Update()
     {
-        Renderer renderer = GetComponent<Renderer>();
-        if (renderer != null)
+        if (transform.localScale != _previousScale)
         {
-            float scaleX = transform.localScale.x * textureScale.x;
-            float scaleY = transform.localScale.y * textureScale.y;
-            renderer.material.mainTextureScale = new Vector2(scaleX, scaleY);
+            UpdateTextureScale();
+            _previousScale = transform.localScale;
         }
+    }
+
+    void UpdateTextureScale()
+    {
+        Vector2 newScale = new Vector2(
+            baseScale.x * transform.localScale.x,
+            baseScale.y * transform.localScale.y
+        );
+        _renderer.material.mainTextureScale = newScale;
     }
 }

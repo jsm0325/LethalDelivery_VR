@@ -16,7 +16,7 @@ public class Bullet : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             Destroy(gameObject);  // 총알이 목표물에 닿으면 파괴
-            Debug.Log("Damage 5"); // 추후에 플레이어 데미지 코드 추가
+            Player.instance.currentHP -= 10;
         }
     }
 }

@@ -22,8 +22,10 @@ public class SelectPlayer : MonoBehaviour
 
 
     [Header("사운드 클립")]
+    private AudioSource audioSource;
     public AudioClip hoverSound;
     public AudioClip clickSound;
+
 
 
     private bool btn_mode1 = false;
@@ -32,6 +34,7 @@ public class SelectPlayer : MonoBehaviour
 
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         // LaserPointer 이벤트 구독
         if (steamVR_LaserPointer != null)
         {
@@ -56,6 +59,7 @@ public class SelectPlayer : MonoBehaviour
         if (e.target.gameObject.CompareTag("btn_mode1") == true)
         {
             btn_mode1 = true;
+            PlaySound(hoverSound);
         }
         else
         {
@@ -66,6 +70,7 @@ public class SelectPlayer : MonoBehaviour
         if (e.target.gameObject.CompareTag("btn_mode2") == true)
         {
             btn_mode2 = true;
+            PlaySound(hoverSound);
         }
         else
         {
@@ -78,11 +83,21 @@ public class SelectPlayer : MonoBehaviour
     {
         if (btn_mode1 == true)
         {
+            PlaySound(clickSound);
             SceneManager.LoadScene("OutMap");
         }
         else if (btn_mode2 == true)
         {
+            PlaySound(clickSound);
             SceneManager.LoadScene("SciFi_Warehouse");
+        }
+    }
+
+    public void PlaySound(AudioClip clip)
+    {
+        if (audioSource != null && clip != null)
+        {
+            audioSource.PlayOneShot(clip);
         }
     }
 

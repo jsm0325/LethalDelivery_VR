@@ -12,7 +12,7 @@ public class Turret : MonoBehaviour
     public Transform upperBarrel;
     public Transform lowerBarrel;
     private bool isUpperBarrel = true;
-    private GameObject target;
+    private Vector3 target;
     public float turnSpeed = 100f; // 회전 속도
 
     public AudioSource shootSound; // 사운드 소스 추가
@@ -28,7 +28,7 @@ public class Turret : MonoBehaviour
     public float lostTargetTimeout = 3f; // 타겟을 잃은 후 회전 시작 시간
 
     private float lostTargetTimer = 0f;
-    private float detectionInterval = 0.1f;
+    private float detectionInterval = 0.2f;
     private void Start()
     {
         // 경고음 재생을 위한 코루틴 시작
@@ -39,18 +39,15 @@ public class Turret : MonoBehaviour
     void Update()
     {
 
-        if (target != null)
+        if (target != Vector3.zero)
         {
-            Vector3 dir = target.transform.position - transform.position;
+            Vector3 dir = target - transform.position;
 
             // 현재 터렛 헤드가 Z축 기준으로 좌측을 보고 있으므로, dir을 보정
             dir = Quaternion.Euler(0, 90, 0) * dir;
-            Quaternion targetRotation = Quaternion.LookRotation(dir);
-            Vector3 rotation = targetRotation.eulerAngles;
-            rotation.x = 0; // X축 회전 제거
-            rotation.z = 0; // Z축 회전 제거
-
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(rotation), Time.deltaTime * 5f);
+            Quaternion lookRotation = Quaternion.LookRotation(dir);
+            Vector3 rotation = Quaternion.Lerp(turretHead.rotation, lookRotation, Time.deltaTime * turnSpeed).eulerAngles;
+            turretHead.rotation = Quaternion.Euler(0f, rotation.y, 0f);
 
             if (fireCountdown <= 0f)
             {
@@ -85,19 +82,17 @@ public class Turret : MonoBehaviour
 
             if (Physics.Raycast(barrel.position, forward, out hit, detectionRange, detectionLayer))
             {
-                GameObject head = GameObject.FindWithTag("MainCamera");
                 if (hit.collider.CompareTag("Player"))
                 {
-                    
-                    target = head;
+                    target = hit.transform.position;
                     Debug.Log("플레이어 감지");
                 }
             }
             else
             {
-                if (target != null)
+                if (target != Vector3.zero)
                 {
-                    target = null;
+                    target = Vector3.zero;
                     Debug.Log("플레이어 감지 실패");
                 }
             }

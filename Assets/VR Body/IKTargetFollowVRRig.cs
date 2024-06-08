@@ -58,7 +58,7 @@ public class IKTargetFollowVRRig : MonoBehaviour
         if(onFullTracking)
         {
             // Mapping the waist
-            Waist.Map();
+            //Waist.Map();
         }
 
 

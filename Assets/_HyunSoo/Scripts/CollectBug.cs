@@ -15,7 +15,7 @@ public class CollectBug : Enemy
     {
         base.Start();
         name = "CollectBug";
-        //itembox = GameObject.Find("itembox").GetComponent<Transform>();
+        itembox = GameObject.Find("itembox").GetComponent<Transform>();
         hp = 1.0f;
         score = 1;
         sound = GetComponent<AudioSource>();
@@ -50,10 +50,10 @@ public class CollectBug : Enemy
                 }
             }
         }
-        if (isGivenItem == true)
-            state = State.pickup;
         if (state == State.pickup)
             agent.SetDestination(itembox.position);
+        if (isGivenItem == true)
+            state = State.pickup;
 
         float distance = Vector3.Distance(transform.position, player.position);
         if (distance <= detectionRange)

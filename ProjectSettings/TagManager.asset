@@ -18,6 +18,7 @@ TagManager:
   - Restart
   - btn_mode1
   - btn_mode2
+  - item
   layers:
   - Default
   - TransparentFX

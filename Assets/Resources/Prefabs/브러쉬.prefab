@@ -9,11 +9,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: aed8c47425ab91f4eb06ce6fe47c3e4e, type: 3}
       propertyPath: m_Name
-      value: brush_low Variant
+      value: "\uBE0C\uB7EC\uC26C"
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: aed8c47425ab91f4eb06ce6fe47c3e4e, type: 3}
       propertyPath: m_Layer
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: aed8c47425ab91f4eb06ce6fe47c3e4e, type: 3}
+      propertyPath: m_TagString
+      value: item
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: aed8c47425ab91f4eb06ce6fe47c3e4e, type: 3}
       propertyPath: m_RootOrder
@@ -122,4 +126,3 @@ MonoBehaviour:
   itemName: "\uBE0C\uB7EC\uC26C"
   icon: {fileID: 21300000, guid: cfa378a4e96553745bf07a0c0693390c, type: 3}
   value: 600
-  prefab: {fileID: 3860768311240418922}

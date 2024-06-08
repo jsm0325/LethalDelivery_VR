@@ -9,11 +9,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: 6296e48663fd7ad46b1a2af507f871cf, type: 3}
       propertyPath: m_Name
-      value: safetygoggles_low Variant
+      value: "\uC548\uC804\uACE0\uAE00"
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 6296e48663fd7ad46b1a2af507f871cf, type: 3}
       propertyPath: m_Layer
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 6296e48663fd7ad46b1a2af507f871cf, type: 3}
+      propertyPath: m_TagString
+      value: item
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 6296e48663fd7ad46b1a2af507f871cf, type: 3}
       propertyPath: m_RootOrder
@@ -122,4 +126,3 @@ MonoBehaviour:
   itemName: "\uC548\uC804\uACE0\uAE00"
   icon: {fileID: 21300000, guid: add7fe454c7870e49bc3b2a3ba1767ce, type: 3}
   value: 700
-  prefab: {fileID: 401831929671123768}

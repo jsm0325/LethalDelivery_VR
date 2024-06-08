@@ -9,11 +9,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100010, guid: efe9381559c516743bd05cef82f39ebb, type: 3}
       propertyPath: m_Name
-      value: Workbench Variant
+      value: "\uC791\uC5C5\uB300"
       objectReference: {fileID: 0}
     - target: {fileID: 100010, guid: efe9381559c516743bd05cef82f39ebb, type: 3}
       propertyPath: m_Layer
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 100010, guid: efe9381559c516743bd05cef82f39ebb, type: 3}
+      propertyPath: m_TagString
+      value: item
       objectReference: {fileID: 0}
     - target: {fileID: 400010, guid: efe9381559c516743bd05cef82f39ebb, type: 3}
       propertyPath: m_RootOrder
@@ -110,4 +114,3 @@ MonoBehaviour:
   itemName: "\uC791\uC5C5\uB300"
   icon: {fileID: 21300000, guid: b524c9190c50d1d4d9de71d14b04cc27, type: 3}
   value: 600
-  prefab: {fileID: 6468828613256424494}

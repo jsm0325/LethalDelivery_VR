@@ -21,15 +21,14 @@ public class Sight : MonoBehaviour
                 transform.GetComponentInParent<Enemy>().state = Enemy.State.encounter;
             }
         }
-        if (col.tag == "item" && transform.GetComponentInParent<Enemy>().name == "CollectBug")
+        if (col.tag == "item" && transform.GetComponentInParent<Enemy>().name == "CollectBug" && transform.GetComponentInParent<CollectBug>().isGivenItem == false)
         {
-            //collect
             transform.GetComponentInParent<CollectBug>().isGivenItem = true;
+            Destroy(col.gameObject);
             transform.GetComponentInParent<Enemy>().anim.SetTrigger("Pickup");
         }
-        if (col.tag == "itembox" && transform.GetComponentInParent<Enemy>().name == "CollectBug")
+        if (col.tag == "itembox" && transform.GetComponentInParent<Enemy>().name == "CollectBug" && transform.GetComponentInParent<CollectBug>().isGivenItem == true)
         {
-            //collect
             transform.GetComponentInParent<CollectBug>().isGivenItem = false;
             transform.GetComponentInParent<CollectBug>().state = Enemy.State.wander;
         }
@@ -51,6 +50,11 @@ public class Sight : MonoBehaviour
             if (transform.GetComponentInParent<Enemy>().name == "NoEye")
             {
                 transform.GetComponentInParent<Enemy>().state = Enemy.State.encounter;
+            }
+            if (col.tag == "itembox" && transform.GetComponentInParent<Enemy>().name == "CollectBug" && transform.GetComponentInParent<CollectBug>().isGivenItem == true)
+            {
+                transform.GetComponentInParent<CollectBug>().isGivenItem = false;
+                transform.GetComponentInParent<CollectBug>().state = Enemy.State.wander;
             }
         }
     }

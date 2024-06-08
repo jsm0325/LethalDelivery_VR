@@ -11,10 +11,10 @@ public class RandomSpawner : MonoBehaviour
 
     public float spawnInterval = 0.5f;
 
-    public int maxMobs = 9;
-    int giants = 2;
-    int noeys = 4;
-    int collectBugs = 3;
+    public int maxMobs = 1;
+    int giants = 1;
+    int noeys = 1;
+    int collectBugs = 1;
     int i = 0;
     void Start()
     {
@@ -52,30 +52,27 @@ public class RandomSpawner : MonoBehaviour
     }
     void PlaceRandomButMaxEach()
     {
-        int randindex = Random.Range(0, Mobs.Length);
-        if(randindex == 0 && collectBugs > 0)
+        if(i == 0 && collectBugs > 0)
         {
             Instantiate(Mobs[0], spawnPoints[i]);
             collectBugs--;
             maxMobs--;
-            i++;
         }
-        if (randindex == 1 && noeys > 0)
+        if (i == 1 && noeys > 0)
         {
             Instantiate(Mobs[1], spawnPoints[i]);
             noeys--;
             maxMobs--;
-            i++;
         }
-        if (randindex == 2 && giants > 0)
+        if (i == 2 && giants > 0)
         {
             Instantiate(Mobs[2], spawnPoints[i]);
             giants--;
             maxMobs--;
-            i++;
         }
         if (maxMobs == 0)
             return;
+        i++;
     }
     void Shuffle<T>(T[] array)
     {

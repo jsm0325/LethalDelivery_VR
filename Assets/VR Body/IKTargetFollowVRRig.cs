@@ -55,9 +55,12 @@ public class IKTargetFollowVRRig : MonoBehaviour
 
         // Mapping the head
         head.Map();
+        if(onFullTracking)
+        {
+            // Mapping the waist
+            Waist.Map();
+        }
 
-        // Mapping the waist
-        Waist.Map();
 
         // Mapping the hands
         leftHand.Map();

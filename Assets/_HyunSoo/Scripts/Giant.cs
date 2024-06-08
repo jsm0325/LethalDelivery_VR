@@ -36,7 +36,6 @@ public class Giant : Enemy
         {
             if (isPlayerBig == false)
             {
-                ChangeSound(giantClips[1], sound);
                 state = State.kill;
             }
             else
@@ -44,6 +43,7 @@ public class Giant : Enemy
         }
         if(state == State.kill)
         {
+            ChangeSound(giantClips[1], sound);
             anim.SetBool("Run", true);
             agent.SetDestination(player.position);
             if (Vector3.Distance(transform.position, player.position) <= killDis)

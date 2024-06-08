@@ -9,11 +9,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: 9d0d902f71acfe646a46cb625f815a49, type: 3}
       propertyPath: m_Name
-      value: safetyhat_low Variant
+      value: "\uC548\uC804\uBAA8"
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 9d0d902f71acfe646a46cb625f815a49, type: 3}
       propertyPath: m_Layer
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 9d0d902f71acfe646a46cb625f815a49, type: 3}
+      propertyPath: m_TagString
+      value: item
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 9d0d902f71acfe646a46cb625f815a49, type: 3}
       propertyPath: m_RootOrder
@@ -122,4 +126,3 @@ MonoBehaviour:
   itemName: "\uC548\uC804\uBAA8"
   icon: {fileID: 21300000, guid: b972c2be5997a1a4aaf2456269e1fadf, type: 3}
   value: 200
-  prefab: {fileID: 4597718908178052067}

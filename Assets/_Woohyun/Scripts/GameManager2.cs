@@ -24,6 +24,7 @@ public class GameManager2 : MonoBehaviour
 
     public bool isGameOver = false; // 게임 오버 상태
 
+    private AudioSource audioSource;
 
     public static GameManager2 Instance;
     public Player player;
@@ -44,6 +45,7 @@ public class GameManager2 : MonoBehaviour
     void Start()
     {
         StartNewGame();
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -120,5 +122,13 @@ public class GameManager2 : MonoBehaviour
 
         InventoryManager.Instance.ClearItemData(); // JSON 데이터 초기화
         InventoryManager.Instance.RestoreItems();
+    }
+
+    public void PlaySound(AudioClip clip)
+    {
+        if (audioSource != null && clip != null)
+        {
+            audioSource.PlayOneShot(clip);
+        }
     }
 }

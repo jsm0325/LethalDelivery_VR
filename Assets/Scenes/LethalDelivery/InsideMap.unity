@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 0}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: abaa248e77f9f3b409bdfe7a31045873, type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -4095,9 +4095,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Mobs:
-  - {fileID: 3056779875314254153, guid: 01d589620ee0ebc4989371122457f22b, type: 3}
-  - {fileID: 312237642265165646, guid: dd6ff115baac1534f9f4dc10506e46f0, type: 3}
   - {fileID: 4071832829212348688, guid: 060d22d93dcaa244d82f8e5c5f5da802, type: 3}
+  - {fileID: 312237642265165646, guid: dd6ff115baac1534f9f4dc10506e46f0, type: 3}
+  - {fileID: 3056779875314254153, guid: 01d589620ee0ebc4989371122457f22b, type: 3}
   spawnPoints:
   - {fileID: 1654050627}
   - {fileID: 785832400}

@@ -380,14 +380,14 @@ MonoBehaviour:
   fireRate: 1
   upperBarrel: {fileID: 5175050462501376834}
   lowerBarrel: {fileID: 5175050462343855643}
-  turnSpeed: 18
+  turnSpeed: 70
   shootSound: {fileID: 5175050462501376835}
   upperMuzzleFlash: {fileID: 4977383594541951112}
   lowerMuzzleFlash: {fileID: 4977383595794909349}
   warningSound: {fileID: 2083779340812435478}
   warningInterval: 15
   intervalVariation: 5
-  detectionRange: 20
+  detectionRange: 60
   detectionLayer:
     serializedVersion: 2
     m_Bits: 8
